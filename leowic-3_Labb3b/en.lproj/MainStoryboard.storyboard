@@ -24,7 +24,7 @@
         <scene sceneID="h4P-sf-2Xp">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="af2-2L-k4W" sceneMemberID="viewController">
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="fZv-Fj-CsZ">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -32,11 +32,54 @@
                     </tabBar>
                     <connections>
                         <segue destination="3" kind="relationship" relationship="viewControllers" id="coo-Up-esH"/>
+                        <segue destination="xnS-ku-FPL" kind="relationship" relationship="viewControllers" id="2Oc-cp-Qcd"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YSk-go-0sm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-487" y="64"/>
+        </scene>
+        <!--Table View Controller - Root View Controller-->
+        <scene sceneID="15r-f4-2wL">
+            <objects>
+                <tableViewController id="eDq-7d-SMa" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="P2N-Cz-Uib">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="xzi-7e-9QZ">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="9SO-LQ-f2d"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vvw-Pn-9Xn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="533" y="-617"/>
+        </scene>
+        <!--Navigation Controller - Lediga jobb-->
+        <scene sceneID="8CZ-ai-IYx">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="xnS-ku-FPL" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Lediga jobb" id="FzG-wa-e0X"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Os2-4f-bnM">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="eDq-7d-SMa" kind="relationship" relationship="rootViewController" id="Cpd-be-F6l"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j4G-Nv-9Rl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1" y="-618"/>
         </scene>
         <!--Ald Master View Controller - Master-->
         <scene sceneID="18">
