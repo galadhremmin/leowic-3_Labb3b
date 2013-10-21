@@ -9,10 +9,12 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import "AldDataModelConstants.h"
 #import "AldDataModel.h"
+#import "AldJSONInterpreterProtocol.h"
 #import "AldAFCountyInterpreter.h"
 #import "AldAFOfficesInCountyInterpreter.h"
 #import "AldAFOfficeDetailInterpreter.h"
 #import "AldRequestState.h"
+#import "AldModelledData.h"
 
 static AldDataModel *_defaultModel = nil;
 
@@ -54,9 +56,44 @@ static AldDataModel *_defaultModel = nil;
     }
 }
 
+-(BOOL) modelData: (AldModelledData *)data isUpToDateWithKey: (NSString *)dataKey
+{
+    CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
+    
+    if ( data == nil) {
+        return NO;
+    }
+    
+    // 10 minutes
+    if (now - data.lastUpdate > 10 * 60) {
+        return NO;
+    }
+    
+    if (dataKey != nil) {
+        if ([data.data isKindOfClass:[NSDictionary class]]) {
+            id container = (NSDictionary *) data.data;
+            
+            if ([container objectForKey:dataKey] == nil) {
+                return NO;
+            }
+        } else {
+            [NSException raise:@"Unrecognised kind of class." format:@"The class %@ isn't recognised and supported by this procedure.", NSStringFromClass([data.data class])];
+        }
+    }
+    
+    return YES;
+}
+
 -(void) requestCounties
 {
-    [self enqueueRequestWithURL:@"http://api.arbetsformedlingen.se/arbetsformedling/soklista/lan" withInterpreter:[AldAFCountyInterpreter class] andUserData:nil];
+    id interpreter = [[AldAFCountyInterpreter alloc] init];
+    
+    if ([self modelData:self.counties isUpToDateWithKey:nil]) {
+        [self interpreter:interpreter shouldNotifyNewData:nil dependantOnUserData:nil];
+        return;
+    }
+    
+    [self enqueueRequestWithURL:@"http://api.arbetsformedlingen.se/arbetsformedling/soklista/lan" withInterpreter:interpreter andUserData:nil];
 }
 
 -(void) requestOfficesInCounty: (AldAFCounty *)county
@@ -64,9 +101,17 @@ static AldDataModel *_defaultModel = nil;
     if (county == nil) {
         return;
     }
+
+    id interpreter = [[AldAFOfficesInCountyInterpreter alloc] init];
+    
+    if ([self modelData:self.officesInCounties isUpToDateWithKey:county.entityId]) {
+        [self interpreter:interpreter shouldNotifyNewData:nil dependantOnUserData:county.entityId];
+        return;
+    }
     
     NSString *urlString = [NSString stringWithFormat:@"http://api.arbetsformedlingen.se/arbetsformedling/platser?lanid=%@", county.entityId];
-    [self enqueueRequestWithURL:urlString withInterpreter:[AldAFOfficesInCountyInterpreter class] andUserData:county.entityId];
+    
+    [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:county.entityId];
 }
 
 -(void) requestDetailsForOffice: (AldAFOffice *)office
@@ -75,11 +120,61 @@ static AldDataModel *_defaultModel = nil;
         return;
     }
     
+    id interpreter = [[AldAFOfficeDetailInterpreter alloc] init];
+    if ([self modelData:self.offices isUpToDateWithKey:office.entityId]) {
+        [self interpreter:interpreter shouldNotifyNewData:nil dependantOnUserData:office.entityId];
+        return;
+    }
+    
     NSString *urlString = [NSString stringWithFormat:@"http://api.arbetsformedlingen.se/arbetsformedling/%@", office.entityId];
-    [self enqueueRequestWithURL:urlString withInterpreter:[AldAFOfficeDetailInterpreter class] andUserData:office.entityId];
+    [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:office.entityId];
 }
 
--(void) enqueueRequestWithURL: (NSString *)urlString withInterpreter: (Class) class andUserData: (id)data
+-(void) interpreter: (NSObject<AldJSONInterpreterProtocol> *)interpreter shouldNotifyNewData: (id)data dependantOnUserData: (id)dataKey
+{
+    id userData = [NSMutableDictionary dictionary];
+    id iid = interpreter.interpretationId;
+ 
+    if (data != nil) {
+        id container = [[AldModelledData alloc] initWithData:data forKey:dataKey];
+        
+        if ([iid isEqualToString:kAldDataModelSignalDefault]) {
+            // default message, assign the result as user data and pass it on, as there is
+            // no container for these sort of messages.
+            [userData setValue:data forKey:kAldDataModelSignalDefault];
+        }
+        
+        else if ([iid isEqualToString:kAldDataModelSignalCounties]) {
+            @synchronized (self.counties) {
+                [self setCounties:container];
+            }
+        }
+        
+        else if ([iid isEqualToString:kAldDataModelSignalOffices]) {
+            @synchronized (self.officesInCounties) {
+                if (self.officesInCounties == nil) {
+                    self.officesInCounties = container;
+                } else {
+                    [self.officesInCounties.data setValue:container forKey:dataKey];
+                }
+            }
+        }
+        
+        else if ([iid isEqualToString:kAldDataModelSignalOffice]) {
+            @synchronized (self.officesInCounties) {
+                if (self.offices == nil) {
+                    self.offices = container;
+                } else {
+                    [self.offices.data setValue:container forKey:dataKey];
+                }
+            }
+        }
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:interpreter.interpretationId object:self userInfo:userData];
+}
+
+-(void) enqueueRequestWithURL: (NSString *)urlString withInterpreter: (NSObject<AldJSONInterpreterProtocol> *)interpreter andUserData: (id)data
 {
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
@@ -87,7 +182,6 @@ static AldDataModel *_defaultModel = nil;
 
     NSURLConnection *conn = [NSURLConnection connectionWithRequest:req delegate:self];
     
-    id interpreter = [[class alloc] init];
     AldRequestState *rq = [[AldRequestState alloc] initWithInterpreter: interpreter];
     rq.userData = data;
     
@@ -145,46 +239,7 @@ static AldDataModel *_defaultModel = nil;
     }
     
     id data = [state.interpreter interpretJSON:state.data];
-    id userData = [NSMutableDictionary dictionary];
-    id iid = state.interpreter.interpretationId;
-    
-    if ([iid isEqualToString:kAldDataModelSignalDefault]) {
-        // default message, assign the result as user data and pass it on, as there is
-        // no container for these sort of messages.
-        [userData setValue:data forKey:kAldDataModelSignalDefault];
-    }
-    
-    else if ([iid isEqualToString:kAldDataModelSignalCounties]) {
-        @synchronized (self.counties) {
-            [self setCounties:data];
-        }
-    }
-    
-    else if ([iid isEqualToString:kAldDataModelSignalOffices]) {
-        @synchronized (self.officesInCounties) {
-            if (self.officesInCounties == nil) {
-                self.officesInCounties = [NSMutableDictionary dictionary];
-            }
-            
-            [self.officesInCounties setValue:data forKey:state.userData];
-        }
-        
-        [userData setValue:state.userData forKey:@"key"];
-    }
-    
-    else if ([iid isEqualToString:kAldDataModelSignalOffice]) {
-        @synchronized (self.officesInCounties) {
-            if (self.offices == nil) {
-                self.offices = [NSMutableDictionary dictionary];
-            }
-            
-            [self.offices setValue:data forKey:state.userData];
-        }
-        
-        [userData setValue:state.userData forKey:@"key"];
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:state.interpreter.interpretationId object:self userInfo:userData];
+    [self interpreter:state.interpreter shouldNotifyNewData:data dependantOnUserData:state.userData];
         
     [self makeStateObsolete:connection];
 }

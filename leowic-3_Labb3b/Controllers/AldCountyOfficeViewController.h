@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AldCountySelectionViewController.h"
 
-@interface AldMasterViewController : UITableViewController
+@interface AldCountyOfficeViewController : AldCountySelectionViewController
 
 @end

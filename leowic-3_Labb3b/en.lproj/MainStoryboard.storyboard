@@ -24,7 +24,7 @@
         <scene sceneID="h4P-sf-2Xp">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="af2-2L-k4W" sceneMemberID="viewController">
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="fZv-Fj-CsZ">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -39,16 +39,78 @@
             </objects>
             <point key="canvasLocation" x="-487" y="64"/>
         </scene>
-        <!--Table View Controller - Root View Controller-->
+        <!--Ald County Opportunities View Controller - Lediga jobb-->
         <scene sceneID="15r-f4-2wL">
             <objects>
-                <tableViewController id="eDq-7d-SMa" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="P2N-Cz-Uib">
+                <tableViewController id="eDq-7d-SMa" customClass="AldCountyOpportunitiesViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" restorationIdentifier="" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="P2N-Cz-Uib">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="xzi-7e-9QZ">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="xzi-7e-9QZ">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="CQ1-Bj-sYR" kind="push" id="ScV-yC-6YN"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Lediga jobb" id="9SO-LQ-f2d"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vvw-Pn-9Xn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="459" y="-618"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="Ghv-zu-KRs">
+            <objects>
+                <tableViewController id="CQ1-Bj-sYR" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="6Jg-sg-W3A">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="cr7-mM-LeK">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="aTI-ZH-D5o" kind="push" id="inA-z5-mow"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="CQ1-Bj-sYR" id="a4B-SX-dMe"/>
+                            <outlet property="delegate" destination="CQ1-Bj-sYR" id="VbO-AK-DST"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="au4-8i-eUd"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qay-pb-AC5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="900" y="-618"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="eSd-s1-yoR">
+            <objects>
+                <tableViewController id="aTI-ZH-D5o" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="guq-GT-o9B">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="oJS-Cw-hW4">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -58,12 +120,16 @@
                                 </view>
                             </tableViewCell>
                         </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="aTI-ZH-D5o" id="t8p-xz-zRs"/>
+                            <outlet property="delegate" destination="aTI-ZH-D5o" id="VWu-BW-CxQ"/>
+                        </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="9SO-LQ-f2d"/>
+                    <navigationItem key="navigationItem" id="780-Jd-Ipn"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vvw-Pn-9Xn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5J7-fO-axF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="533" y="-617"/>
+            <point key="canvasLocation" x="1332" y="-612"/>
         </scene>
         <!--Navigation Controller - Lediga jobb-->
         <scene sceneID="8CZ-ai-IYx">
@@ -81,10 +147,10 @@
             </objects>
             <point key="canvasLocation" x="-1" y="-618"/>
         </scene>
-        <!--Ald Master View Controller - Master-->
+        <!--Ald County Office View Controller - Master-->
         <scene sceneID="18">
             <objects>
-                <tableViewController storyboardIdentifier="" title="Master" id="12" customClass="AldMasterViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="" title="Master" id="12" customClass="AldCountyOfficeViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="13">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -119,7 +185,7 @@
                             <outlet property="delegate" destination="12" id="15"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Arbetsförmedlingen" id="36"/>
+                    <navigationItem key="navigationItem" title="Kontor" id="36"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="17" sceneMemberID="firstResponder"/>
             </objects>
@@ -156,7 +222,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qgo-FI-6sb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="906" y="64"/>
+            <point key="canvasLocation" x="900" y="64"/>
         </scene>
         <!--Ald Office Details View Controller - Detail-->
         <scene sceneID="24">
@@ -190,8 +256,14 @@
         </scene>
     </scenes>
     <classes>
-        <class className="AldMasterViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AldMasterViewController.h"/>
+        <class className="AldCountyOfficeViewController" superclassName="AldCountySelectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AldCountyOfficeViewController.h"/>
+        </class>
+        <class className="AldCountyOpportunitiesViewController" superclassName="AldCountySelectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AldCountyOpportunitiesViewController.h"/>
+        </class>
+        <class className="AldCountySelectionViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AldCountySelectionViewController.h"/>
         </class>
         <class className="AldOfficeDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AldOfficeDetailsViewController.h"/>

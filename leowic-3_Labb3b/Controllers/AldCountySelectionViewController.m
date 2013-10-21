@@ -1,24 +1,16 @@
 //
-//  AldMasterViewController.m
+//  AldCountySelectionViewController.m
 //  leowic-3_Labb3b
 //
-//  Created by Leonard Wickmark on 10/14/13.
+//  Created by Leonard Wickmark on 10/21/13.
 //  Copyright (c) 2013 LTU. All rights reserved.
 //
 
-#import "AldMasterViewController.h"
-#import "AldDataModel.h"
+#import "AldCountySelectionViewController.h"
 #import "AldAFCounty.h"
 #import "AldDataModelConstants.h"
-#import "AldOfficeSelectionViewController.h"
 
-@interface AldMasterViewController ()
-
-@property (nonatomic, strong) AldDataModel *model;
-
-@end
-
-@implementation AldMasterViewController
+@implementation AldCountySelectionViewController
 
 -(void) awakeFromNib
 {
@@ -29,7 +21,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveCountyArray:) name:kAldDataModelSignalCounties object:nil];
-
+    
     _model = [AldDataModel defaultModel];
     [_model requestCounties];
 }
@@ -61,27 +53,16 @@
         return 0;
     }
     
-    return _model.counties.count;
+    return [_model.counties.data count];
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath: (NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    AldAFCounty *object = _model.counties[indexPath.row];
+    
+    AldAFCounty *object = _model.counties.data[indexPath.row];
     cell.textLabel.text = [object name];
     return cell;
-}
-
--(void) prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
-{
-    if ([[segue identifier] isEqualToString:@"officeSelection"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        id object = _model.counties[indexPath.row];
-        
-        AldOfficeSelectionViewController *nextController = (AldOfficeSelectionViewController *)segue.destinationViewController;
-        [nextController setCounty:object];
-    }
 }
 
 @end

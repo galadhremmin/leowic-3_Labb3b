@@ -9,14 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "AldAFCounty.h"
 #import "AldAFOffice.h"
+#import "AldModelledData.h"
 
 @interface AldDataModel : NSObject<NSURLConnectionDelegate>
 
 +(AldDataModel *) defaultModel;
 
-@property(atomic, strong) NSArray *counties;
-@property(atomic, strong) NSMutableDictionary *officesInCounties;
-@property(atomic, strong) NSMutableDictionary *offices;
+@property(atomic, strong) AldModelledData *counties;
+@property(atomic, strong) AldModelledData *officesInCounties;
+@property(atomic, strong) AldModelledData *offices;
 
 -(void) requestCounties;
 -(void) requestOfficesInCounty: (AldAFCounty *)county;

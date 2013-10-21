@@ -67,7 +67,7 @@
         return 0;
     }
     
-    NSArray *offices = [_model.officesInCounties objectForKey:self.county.entityId];
+    NSArray *offices = [_model.officesInCounties.data objectForKey:self.county.entityId];
     if (offices == nil) {
         return 0;
     }
@@ -79,7 +79,7 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    NSArray *offices = [_model.officesInCounties objectForKey:self.county.entityId];
+    NSArray *offices = [_model.officesInCounties.data objectForKey:self.county.entityId];
     AldAFOffice *object = offices[indexPath.row];
     cell.textLabel.text = [object name];
     return cell;
@@ -89,7 +89,7 @@
 {
     if ([[segue identifier] isEqualToString:@"officeDetails"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSArray *offices = [_model.officesInCounties objectForKey:self.county.entityId];
+        NSArray *offices = [_model.officesInCounties.data objectForKey:self.county.entityId];
         id object = offices[indexPath.row];
         
         AldOfficeDetailsViewController *nextController = (AldOfficeDetailsViewController *)segue.destinationViewController;

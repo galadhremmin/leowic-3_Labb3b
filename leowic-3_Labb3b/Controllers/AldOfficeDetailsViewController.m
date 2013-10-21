@@ -41,7 +41,7 @@
 
 -(void) receiveOffice: (NSNotification *)notification
 {
-    AldAFOfficeDetails *details = [_model.offices objectForKey:self.office.entityId];
+    AldAFOfficeDetails *details = [_model.offices.data objectForKey:self.office.entityId];
     
     NSMutableString *html = [NSMutableString string];
     
