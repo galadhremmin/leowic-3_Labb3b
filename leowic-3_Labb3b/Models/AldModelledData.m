@@ -27,7 +27,7 @@
         return [self initWithData:data];
     }
     
-    NSDictionary *dict = [NSDictionary dictionaryWithObject:data forKey:dataKey];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:data forKey:dataKey];
     return [self initWithData:dict];
 }
 

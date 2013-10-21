@@ -70,14 +70,12 @@ static AldDataModel *_defaultModel = nil;
     }
     
     if (dataKey != nil) {
-        if ([data.data isKindOfClass:[NSDictionary class]]) {
-            id container = (NSDictionary *) data.data;
-            
-            if ([container objectForKey:dataKey] == nil) {
+        if ([data.data respondsToSelector:@selector(objectForKey:)]) {
+            if ([data.data objectForKey:dataKey] == nil) {
                 return NO;
             }
         } else {
-            [NSException raise:@"Unrecognised kind of class." format:@"The class %@ isn't recognised and supported by this procedure.", NSStringFromClass([data.data class])];
+            [NSException raise:@"Unrecognised kind of class." format:@"The class %@ doesn't respond to the selector objectForKey which is required for the dataKey constraint.", NSStringFromClass([data.data class])];
         }
     }
     
@@ -155,7 +153,7 @@ static AldDataModel *_defaultModel = nil;
                 if (self.officesInCounties == nil) {
                     self.officesInCounties = container;
                 } else {
-                    [self.officesInCounties.data setValue:container forKey:dataKey];
+                    [self.officesInCounties.data setValue:data forKey:dataKey];
                 }
             }
         }
@@ -165,7 +163,7 @@ static AldDataModel *_defaultModel = nil;
                 if (self.offices == nil) {
                     self.offices = container;
                 } else {
-                    [self.offices.data setValue:container forKey:dataKey];
+                    [self.offices.data setValue:data forKey:dataKey];
                 }
             }
         }
