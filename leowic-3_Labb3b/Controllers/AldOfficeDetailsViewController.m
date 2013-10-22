@@ -72,6 +72,7 @@
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", cleanedString]];
     
     [[UIApplication sharedApplication] openURL:URL];
+    NSLog(@"Phone call URL: %@.", URL);
 }
 
 #pragma mark - UITableViewDelegate
