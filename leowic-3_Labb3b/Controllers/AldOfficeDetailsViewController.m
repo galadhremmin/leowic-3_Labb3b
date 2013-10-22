@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 LTU. All rights reserved.
 //
 
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "AldOfficeDetailsViewController.h"
 #import "AldDataModelConstants.h"
 #import "AldDataModel.h"
@@ -37,27 +39,107 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void) openMap
+{
+    AldAFOfficeDetails *details = [_model.offices.data objectForKey:self.office.entityId];
+    NSString *locationString = [NSString stringWithFormat:@"%@, %@, Sweden", details.visitorAddress, details.visitorCity];
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder geocodeAddressString:locationString
+                 completionHandler:^(NSArray *placemarks, NSError *error) {
+                     
+                     // Convert the CLPlacemark to an MKPlacemark
+                     // Note: There's no error checking for a failed geocode
+                     CLPlacemark *geocodedPlacemark = [placemarks objectAtIndex:0];
+                     MKPlacemark *placemark = [[MKPlacemark alloc]
+                                               initWithCoordinate:geocodedPlacemark.location.coordinate
+                                               addressDictionary:geocodedPlacemark.addressDictionary];
+                     
+                     // Create a map item for the geocoded address to pass to Maps app
+                     MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+                     [mapItem setName:geocodedPlacemark.name];
+                     
+                     // Pass the current location and destination map items to the Maps app
+                     // Set the direction mode in the launchOptions dictionary
+                     [MKMapItem openMapsWithItems:@[mapItem] launchOptions:nil];
+                     
+                 }];
+}
+
+-(void) call: (NSString *)number
+{
+    NSString *cleanedString = [[number componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", cleanedString]];
+    
+    [[UIApplication sharedApplication] openURL:URL];
+}
+
+#pragma mark - UITableViewDelegate
+
+-(NSIndexPath *) tableView: (UITableView *)tableView willSelectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    UITableView *view = (UITableView *)self.view;
+    UITableViewCell *cell = [view cellForRowAtIndexPath:indexPath];
+    
+    switch (indexPath.section * 10 + indexPath.row) {
+        case 4:
+            [self openMap];
+            break;
+        case 21:
+        case 31:
+            [self call:cell.detailTextLabel.text];
+            break;
+    }
+    
+    return indexPath;
+}
+
+-(void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 #pragma mark - Notification center
 
 -(void) receiveOffice: (NSNotification *)notification
 {
     AldAFOfficeDetails *details = [_model.offices.data objectForKey:self.office.entityId];
     
-    NSMutableString *html = [NSMutableString string];
+    [_visitorAddressLabel setText:details.visitorAddress];
+    [_visitorCityLabel setText:details.visitorCity];
+    [_selfServiceHoursLabel setText:details.selfServiceHours];
+    [_personalServiceHoursLabel setText:details.personalServiceHours];
+    [_postAddressLabel setText:details.mailAddress];
+    [_postZipCodeLabel setText:details.mailZipcode];
+    [_postCityAddress setText:details.mailCity];
+    [_mailAddressLabel setText:details.email];
+    [_phoneLabel setText:details.publicPhoneNumber];
+    [_phoneHoursLabel setText:details.phoneHours];
+    [_managerNameLabel setText:details.managerName];
+    [_employerPhoneLabel setText:details.employerPhoneNumber];
+    [_faxNumberLabel setText:details.faxNumber];
     
-    [html appendString:@"<!DOCTYPE html><html><head><style>*{font-family:helvetica, sans-serif;}</style></head><body>"];
-    [html appendFormat:@"<h1>%@</h1>", details.name];
-    [html appendFormat:@"<h2>Besöksadress</h2><p>%@<br />%@</p>", details.visitorAddress, details.visitorCity];
-    [html appendFormat:@"<h2>Postadress</h2><p>%@<br />%@ %@</p>", details.mailAddress, details.mailZipcode, details.mailCity];
-    [html appendFormat:@"<h2>Telefonnummer</h2><p>%@<br />%@ (arbetsgivare)<br />%@</p>", details.publicPhoneNumber, details.employerPhoneNumber, details.phoneHours];
-    [html appendFormat:@"<h2>Öppettider</h2><p>%@<br />%@ (självservice)</p>", details.personalServiceHours, details.selfServiceHours];
+    NSString *extraInformation = details.extraInformation;
     
-    if (details.extraInformation != nil && ![details.extraInformation isEqualToString:@""]) {
-        [html appendFormat:@"<h2>Information</h2><p>%@</p>", details.extraInformation];
+    if (details.extraInformation == nil || [details.extraInformation isEqualToString:@""]) {
+        
+        extraInformation = @"Ingen övrig information.";
+        
     }
-    [html appendString:@"</body></html>"];
     
-    [self.detailsView loadHTMLString:html baseURL:nil];
+    
+    NSString *html = [NSString stringWithFormat:@"<!DOCTYPE html>"
+                      "<html>"
+                      "<head>"
+                      "<style>*{font:9pt helvetica, sans-serif;}</style>"
+                      "</head>"
+                      "<body>%@</body>"
+                      "</html>", extraInformation];
+    
+    [_informationWebView loadHTMLString:html baseURL:nil];
+
+    UITableView *view = (UITableView *)self.view;
+    [view reloadData];
 }
 
 @end
