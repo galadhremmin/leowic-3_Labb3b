@@ -7,14 +7,18 @@
 //
 
 #import "AldCountyOpportunitiesViewController.h"
+#import "AldCitySelectionViewController.h"
 
 @implementation AldCountyOpportunitiesViewController
 
 -(void) prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
 {
-    if ([[segue identifier] isEqualToString:@"officeSelection"]) {
+    if ([[segue identifier] isEqualToString:@"citySelection"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         id object = self.model.counties.data[indexPath.row];
+        
+        AldCitySelectionViewController *nextController = (AldCitySelectionViewController *)segue.destinationViewController;
+        [nextController setCounty:object];
     }
 }
 

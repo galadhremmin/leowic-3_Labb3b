@@ -12,6 +12,7 @@
 #import "AldJSONInterpreterProtocol.h"
 #import "AldAFCountyInterpreter.h"
 #import "AldAFOfficesInCountyInterpreter.h"
+#import "AldAFCitiesInCountyInterpreter.h"
 #import "AldAFOfficeDetailInterpreter.h"
 #import "AldRequestState.h"
 #import "AldModelledData.h"
@@ -112,6 +113,24 @@ static AldDataModel *_defaultModel = nil;
     [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:county.entityId];
 }
 
+-(void) requestCitiesInCounty: (AldAFCounty *)county
+{
+    if (county == nil) {
+        return;
+    }
+    
+    id interpreter = [[AldAFCitiesInCountyInterpreter alloc] init];
+    
+    if ([self modelData:self.citiesInCounties isUpToDateWithKey:county.entityId]) {
+        [self interpreter:interpreter shouldNotifyNewData:nil dependantOnUserData:county.entityId];
+        return;
+    }
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://api.arbetsformedlingen.se/platsannons/soklista/kommuner?lanid=%@", county.entityId];
+    
+    [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:county.entityId];
+}
+
 -(void) requestDetailsForOffice: (AldAFOffice *)office
 {
     if (office == nil) {
@@ -159,11 +178,21 @@ static AldDataModel *_defaultModel = nil;
         }
         
         else if ([iid isEqualToString:kAldDataModelSignalOffice]) {
-            @synchronized (self.officesInCounties) {
+            @synchronized (self.offices) {
                 if (self.offices == nil) {
                     self.offices = container;
                 } else {
                     [self.offices.data setValue:data forKey:dataKey];
+                }
+            }
+        }
+        
+        else if ([iid isEqualToString:kAldDataModelSignalCity]) {
+            @synchronized (self.citiesInCounties) {
+                if (self.citiesInCounties == nil) {
+                    self.citiesInCounties = container;
+                } else {
+                    [self.citiesInCounties.data setValue:data forKey:dataKey];
                 }
             }
         }

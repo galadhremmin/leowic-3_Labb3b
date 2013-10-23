@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AldAFCounty.h"
+#import "AldAlphabeticSectionsTableViewController.h"
 
-@interface AldOfficeSelectionViewController : UITableViewController
+@interface AldOfficeSelectionViewController : AldAlphabeticSectionsTableViewController
 
 @property(nonatomic, weak) AldAFCounty *county;
 

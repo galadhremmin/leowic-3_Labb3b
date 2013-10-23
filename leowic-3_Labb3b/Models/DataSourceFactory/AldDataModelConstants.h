@@ -10,3 +10,4 @@
 #define kAldDataModelSignalCounties @"AFCounty"
 #define kAldDataModelSignalOffices  @"AFOffices"
 #define kAldDataModelSignalOffice   @"AFOffice"
+#define kAldDataModelSignalCity     @"AFCity"

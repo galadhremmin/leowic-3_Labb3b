@@ -17,10 +17,12 @@
 
 @property(atomic, strong) AldModelledData *counties;
 @property(atomic, strong) AldModelledData *officesInCounties;
+@property(atomic, strong) AldModelledData *citiesInCounties;
 @property(atomic, strong) AldModelledData *offices;
 
 -(void) requestCounties;
 -(void) requestOfficesInCounty: (AldAFCounty *)county;
+-(void) requestCitiesInCounty: (AldAFCounty *)county;
 -(void) requestDetailsForOffice: (AldAFOffice *)office;
 
 @end
