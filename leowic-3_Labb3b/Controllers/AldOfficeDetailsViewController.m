@@ -106,28 +106,25 @@
 {
     AldAFOfficeDetails *details = [_model.offices.data objectForKey:self.office.entityId];
     
-    [_visitorAddressLabel setText:details.visitorAddress];
-    [_visitorCityLabel setText:details.visitorCity];
-    [_selfServiceHoursLabel setText:details.selfServiceHours];
+    [_visitorAddressLabel       setText:details.visitorAddress];
+    [_visitorCityLabel          setText:details.visitorCity];
+    [_selfServiceHoursLabel     setText:details.selfServiceHours];
     [_personalServiceHoursLabel setText:details.personalServiceHours];
-    [_postAddressLabel setText:details.mailAddress];
-    [_postZipCodeLabel setText:details.mailZipcode];
-    [_postCityAddress setText:details.mailCity];
-    [_mailAddressLabel setText:details.email];
-    [_phoneLabel setText:details.publicPhoneNumber];
-    [_phoneHoursLabel setText:details.phoneHours];
-    [_managerNameLabel setText:details.managerName];
-    [_employerPhoneLabel setText:details.employerPhoneNumber];
-    [_faxNumberLabel setText:details.faxNumber];
+    [_postAddressLabel          setText:details.mailAddress];
+    [_postZipCodeLabel          setText:details.mailZipcode];
+    [_postCityAddress           setText:details.mailCity];
+    [_mailAddressLabel          setText:details.email];
+    [_phoneLabel                setText:details.publicPhoneNumber];
+    [_phoneHoursLabel           setText:details.phoneHours];
+    [_managerNameLabel          setText:details.managerName];
+    [_employerPhoneLabel        setText:details.employerPhoneNumber];
+    [_faxNumberLabel            setText:details.faxNumber];
     
     NSString *extraInformation = details.extraInformation;
     
     if (details.extraInformation == nil || [details.extraInformation isEqualToString:@""]) {
-        
         extraInformation = @"Ingen övrig information.";
-        
     }
-    
     
     NSString *html = [NSString stringWithFormat:@"<!DOCTYPE html>"
                       "<html>"
