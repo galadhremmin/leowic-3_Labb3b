@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 LTU. All rights reserved.
 //
 
-#import "AldCountiesWithOpportunitiesInterpreter.h"
+#import "AldAFCountiesWithOpportunitiesInterpreter.h"
 #import "AldDataModelConstants.h"
 
-@implementation AldCountiesWithOpportunitiesInterpreter
+@implementation AldAFCountiesWithOpportunitiesInterpreter
 
 -(NSString *) interpretationId
 {

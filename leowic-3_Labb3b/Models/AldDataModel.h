@@ -10,6 +10,7 @@
 #import "AldAFCounty.h"
 #import "AldAFOffice.h"
 #import "AldModelledData.h"
+#import "AldAFInfoContainer.h"
 
 @interface AldDataModel : NSObject<NSURLConnectionDelegate>
 
@@ -28,5 +29,6 @@
 -(void) requestCitiesInCounty: (AldAFCounty *)county;
 -(void) requestDetailsForOffice: (AldAFOffice *)office;
 -(void) requestOpportunityCategories;
+-(void) requestOpportunitiesForCategory: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city;
 
 @end

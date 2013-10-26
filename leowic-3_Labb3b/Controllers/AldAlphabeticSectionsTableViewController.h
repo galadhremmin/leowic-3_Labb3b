@@ -18,7 +18,9 @@
 -(NSString *) titleForEntity: (id)entity;
 
 -(void) populateFromModel;
+-(void) populateEntities: (NSArray *)entities;
 -(void) requestDataFromModel: (AldDataModel *)model;
 -(void) initCell: (UITableViewCell *)cell withData: (id)entity;
+-(id)   selectedData;
 
 @end

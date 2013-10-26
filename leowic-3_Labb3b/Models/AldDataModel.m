@@ -9,16 +9,16 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import "AldDataModelConstants.h"
 #import "AldDataModel.h"
+#import "AldModelledData.h"
 #import "AldJSONInterpreterProtocol.h"
 #import "AldAFCountyInterpreter.h"
 #import "AldAFOfficesInCountyInterpreter.h"
 #import "AldAFCitiesInCountyInterpreter.h"
 #import "AldAFOfficeDetailInterpreter.h"
-#import "AldRequestState.h"
-#import "AldModelledData.h"
-#import "AldAFInfoContainer.h"
 #import "AldAFOpportunityCategoryInterpreter.h"
-#import "AldCountiesWithOpportunitiesInterpreter.h"
+#import "AldAFCountiesWithOpportunitiesInterpreter.h"
+#import "AldAFOpportunityInterpreter.h"
+#import "AldRequestState.h"
 
 static AldDataModel *_defaultModel = nil;
 
@@ -100,7 +100,7 @@ static AldDataModel *_defaultModel = nil;
 
 -(void) requestCountiesWithOpportunities
 {
-    id interpreter = [[AldCountiesWithOpportunitiesInterpreter alloc] init];
+    id interpreter = [[AldAFCountiesWithOpportunitiesInterpreter alloc] init];
     NSString *urlString = @"http://api.arbetsformedlingen.se/platsannons/soklista/lan";
     [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:nil];
 }
@@ -161,6 +161,13 @@ static AldDataModel *_defaultModel = nil;
 {
     id interpreter = [[AldAFOpportunityCategoryInterpreter alloc] init];
     NSString *urlString = @"http://api.arbetsformedlingen.se/platsannons/soklista/yrkesomraden";
+    [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:nil];
+}
+
+-(void) requestOpportunitiesForCategory: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city
+{
+    id interpreter = [[AldAFOpportunityInterpreter alloc] init];
+    NSString *urlString = [NSString stringWithFormat: @"http://api.arbetsformedlingen.se/platsannons/matchning?yrkesomradeid=%@&kommunid=%@", category.entityId, city.entityId];
     [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:nil];
 }
 

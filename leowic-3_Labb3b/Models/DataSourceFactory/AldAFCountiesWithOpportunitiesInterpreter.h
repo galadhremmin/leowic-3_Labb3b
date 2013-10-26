@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "AldAFInfoContainerInterpreter.h"
 
-@interface AldCountiesWithOpportunitiesInterpreter : AldAFInfoContainerInterpreter
+@interface AldAFCountiesWithOpportunitiesInterpreter : AldAFInfoContainerInterpreter
 
 @end

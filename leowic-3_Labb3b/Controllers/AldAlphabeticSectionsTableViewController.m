@@ -8,6 +8,7 @@
 
 #import "AldAlphabeticSectionsTableViewController.h"
 #import "AldDataModel.h"
+#import "AldDataModelConstants.h"
 
 @interface AldAlphabeticSectionsTableViewController ()
 
@@ -44,19 +45,27 @@
 
 -(void) modelDataLoaded: (NSNotification *)notification
 {
-    [self populateFromModel];
+    id userInfo = [notification.userInfo objectForKey:kAldDataModelSignalDefault];
+    if (userInfo == nil) {
+        [self populateFromModel];
+    } else {
+        [self populateEntities:userInfo];
+    }
 }
 
 -(void) populateFromModel
 {
-    _data = [NSMutableDictionary dictionary];
-    
     NSArray *entities = [self entitiesFromModel];
     if (entities == nil) {
-        _data = nil;
         return;
     }
     
+    [self populateEntities:entities];
+}
+
+-(void) populateEntities:(NSArray *)entities
+{
+    _data = [NSMutableDictionary dictionary];
     for (AldAFOffice *entity in entities) {
         
         // try to find a section associated with the specified entity name
@@ -197,6 +206,21 @@
 -(void) initCell: (UITableViewCell *)cell withData: (id)entity
 {
     [NSException raise:@"Not implemented!" format:@"initCell:withData: must be implemented."];
+}
+
+-(id) selectedData
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    if (indexPath == nil) {
+        return nil;
+    }
+    
+    NSArray *entities = [_data objectForKey:[NSString stringWithFormat:@"%d", indexPath.section]];
+    if (entities == nil) {
+        return nil;
+    }
+    
+    return [entities objectAtIndex:indexPath.row];
 }
 
 @end

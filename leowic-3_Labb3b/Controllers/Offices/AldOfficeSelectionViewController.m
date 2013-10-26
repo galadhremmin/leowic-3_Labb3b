@@ -50,12 +50,8 @@
 -(void) prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
 {
     if ([[segue identifier] isEqualToString:@"officeDetails"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSArray *offices = [self.model.officesInCounties.data objectForKey:self.county.entityId];
-        id object = offices[indexPath.row];
-        
         AldOfficeDetailsViewController *nextController = (AldOfficeDetailsViewController *)segue.destinationViewController;
-        [nextController setOffice:object];
+        [nextController setOffice:[self selectedData]];
     }
 }
 

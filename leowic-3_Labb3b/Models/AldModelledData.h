@@ -15,5 +15,6 @@
 
 -(id) initWithData: (id)data;
 -(id) initWithData: (id)data forKey: (NSString *)dataKey;
+-(id) searchForEntityWithId: (NSString *)entityId;
 
 @end

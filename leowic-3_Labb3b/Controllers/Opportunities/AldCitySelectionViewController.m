@@ -7,6 +7,7 @@
 //
 
 #import "AldCitySelectionViewController.h"
+#import "AldOpportunityCategorySelectionViewController.h"
 #import "AldDataModelConstants.h"
 #import "AldAFInfoContainer.h"
 
@@ -44,6 +45,16 @@
     
     cell.textLabel.text = city.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d annonser. %d lediga jobb.", city.amountOfAds, city.amountOfOpportunities];
+}
+
+#pragma mark Segue selectors
+
+-(void) prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
+{
+    if ([[segue identifier] isEqualToString:@"opportunityCategory"]) {
+        AldOpportunityCategorySelectionViewController *nextController = (AldOpportunityCategorySelectionViewController *)segue.destinationViewController;
+        [nextController setCity:[self selectedData]];
+    }
 }
 
 @end

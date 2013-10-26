@@ -8,6 +8,7 @@
 
 #import "AldOpportunityCategorySelectionViewController.h"
 #import "AldDataModelConstants.h"
+#import "AldOpportunitySelectionViewController.h"
 
 @implementation AldOpportunityCategorySelectionViewController
 
@@ -43,5 +44,15 @@
     cell.textLabel.text = category.name;
 }
 
+#pragma mark Segue selectors
+
+-(void) prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
+{
+    if ([[segue identifier] isEqualToString:@"opportunity"]) {
+        AldOpportunitySelectionViewController *nextController = (AldOpportunitySelectionViewController *)segue.destinationViewController;
+        [nextController setCity:_city];
+        [nextController setOpportunityCategory:[self selectedData]];
+    }
+}
 
 @end

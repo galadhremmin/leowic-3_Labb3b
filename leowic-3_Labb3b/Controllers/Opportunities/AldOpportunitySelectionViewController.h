@@ -7,7 +7,11 @@
 //
 
 #import "AldAlphabeticSectionsTableViewController.h"
+#import "AldAFInfoContainer.h"
 
 @interface AldOpportunitySelectionViewController : AldAlphabeticSectionsTableViewController<UISearchBarDelegate>
+
+@property(nonatomic, weak) AldAFInfoContainer *city;
+@property(nonatomic, weak) AldAFInfoContainer *opportunityCategory;
 
 @end

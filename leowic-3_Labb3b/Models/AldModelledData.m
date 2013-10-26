@@ -31,4 +31,54 @@
     return [self initWithData:dict];
 }
 
+-(id) searchForEntityWithId: (NSString *)entityId
+{
+    if (_data == nil) {
+        return nil;
+    }
+    
+    if ([_data isKindOfClass:[NSArray class]]) {
+        return [self searchInArray:_data forKey:entityId withPath:@"entityId"];
+    }
+    
+    if ([_data isKindOfClass:[NSDictionary class]]) {
+        NSArray *keys = [_data allKeys];
+        id value = nil;
+        for (NSString *key in keys) {
+            value = [self searchInArray:[_data objectForKey:key] forKey:entityId withPath:@"entityId"];
+            if (value != nil) {
+                return value;
+            }
+        }
+    }
+    
+    [NSException raise:@"Unrecognised data container to search in." format:@"What kind of class is %@?", NSStringFromClass([_data class])];
+    return nil;
+}
+
+-(id) searchInArray: (NSArray *)dataArray forKey: (NSString *)key withPath: (NSString *)path
+{
+    if (dataArray == nil) {
+        return nil;
+    }
+    
+    if (key == nil) {
+        return nil;
+    }
+    
+    if (path == nil) {
+        return nil;
+    }
+    
+    id soughtClass = [NSString class];
+    for (id entity in dataArray) {
+        id value = [entity valueForKeyPath:path];
+        if ([value isKindOfClass:soughtClass] && [value isEqualToString:key]) {
+            return entity;
+        }
+    }
+    
+    return nil;
+}
+
 @end

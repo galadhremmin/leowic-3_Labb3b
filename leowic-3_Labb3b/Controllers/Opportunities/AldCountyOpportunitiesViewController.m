@@ -63,7 +63,7 @@
 {
     if ([[segue identifier] isEqualToString:@"citySelection"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        id object = self.model.counties.data[indexPath.row];
+        id object = [self.model.counties.data objectAtIndex:indexPath.row];
         
         AldCitySelectionViewController *nextController = (AldCitySelectionViewController *)segue.destinationViewController;
         [nextController setCounty:object];
