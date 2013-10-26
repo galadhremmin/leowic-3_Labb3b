@@ -122,8 +122,6 @@
 		D750C643180C37E6000D762A = {
 			isa = PBXGroup;
 			children = (
-				D7432FA91816DCE200F443DA /* CoreLocation.framework */,
-				D7432FA71816DCDC00F443DA /* MapKit.framework */,
 				D750C655180C37E6000D762A /* leowic-3_Labb3b */,
 				D750C64E180C37E6000D762A /* Frameworks */,
 				D750C64D180C37E6000D762A /* Products */,
@@ -141,6 +139,8 @@
 		D750C64E180C37E6000D762A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D7432FA91816DCE200F443DA /* CoreLocation.framework */,
+				D7432FA71816DCDC00F443DA /* MapKit.framework */,
 				D750C64F180C37E6000D762A /* UIKit.framework */,
 				D750C651180C37E6000D762A /* Foundation.framework */,
 				D750C653180C37E6000D762A /* CoreGraphics.framework */,

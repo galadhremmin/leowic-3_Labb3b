@@ -214,7 +214,7 @@ static AldDataModel *_defaultModel = nil;
     
     // Associate the user data with the connection, and do this by looking at the connection's
     // hash, and using this numeric representation as a key to access the state object.
-    CFDictionaryAddValue (_requests, conn.hash, (__bridge const void*)rq);
+    CFDictionaryAddValue (_requests, (const void *)conn.hash, (__bridge const void*)rq);
     
     // Make sure that the state object is retained. This might be unnecessary?
     [_activeConnections addObject:rq];
@@ -224,7 +224,7 @@ static AldDataModel *_defaultModel = nil;
 
 -(AldRequestState *) stateForConnection: (NSURLConnection *)connection
 {
-    return (AldRequestState *)CFDictionaryGetValue(_requests, connection.hash);
+    return (AldRequestState *)CFDictionaryGetValue(_requests, (const void *)connection.hash);
 }
 
 -(void) makeStateObsolete: (NSURLConnection *)connection
@@ -234,7 +234,7 @@ static AldDataModel *_defaultModel = nil;
         return;
     }
     
-    CFDictionaryRemoveValue(_requests, connection.hash);
+    CFDictionaryRemoveValue(_requests, (const void *)connection.hash);
     [_activeConnections removeObject:state];
 }
 
