@@ -16,13 +16,17 @@
 +(AldDataModel *) defaultModel;
 
 @property(atomic, strong) AldModelledData *counties;
+@property(atomic, strong) AldModelledData *countiesWithOpportunities;
 @property(atomic, strong) AldModelledData *officesInCounties;
 @property(atomic, strong) AldModelledData *citiesInCounties;
 @property(atomic, strong) AldModelledData *offices;
+@property(atomic, strong) AldModelledData *opportunityCategories;
 
 -(void) requestCounties;
+-(void) requestCountiesWithOpportunities;
 -(void) requestOfficesInCounty: (AldAFCounty *)county;
 -(void) requestCitiesInCounty: (AldAFCounty *)county;
 -(void) requestDetailsForOffice: (AldAFOffice *)office;
+-(void) requestOpportunityCategories;
 
 @end

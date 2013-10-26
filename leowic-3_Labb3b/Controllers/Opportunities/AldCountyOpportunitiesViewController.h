@@ -6,8 +6,10 @@
 //  Copyright (c) 2013 LTU. All rights reserved.
 //
 
-#import "AldCountySelectionViewController.h"
+#import "AldDataModel.h"
 
-@interface AldCountyOpportunitiesViewController : AldCountySelectionViewController
+@interface AldCountyOpportunitiesViewController : UITableViewController
+
+@property(nonatomic, weak) AldDataModel *model;
 
 @end

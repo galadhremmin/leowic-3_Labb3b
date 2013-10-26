@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AldJSONEntityProtocol.h"
 
-@interface AldAFCity : NSObject<AldJSONEntityProtocol>
+@interface AldAFInfoContainer : NSObject<AldJSONEntityProtocol>
 
 @property(nonatomic, copy) NSString   *entityId;
 @property(nonatomic, copy) NSString   *name;

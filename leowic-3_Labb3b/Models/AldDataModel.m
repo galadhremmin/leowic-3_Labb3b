@@ -16,6 +16,9 @@
 #import "AldAFOfficeDetailInterpreter.h"
 #import "AldRequestState.h"
 #import "AldModelledData.h"
+#import "AldAFInfoContainer.h"
+#import "AldAFOpportunityCategoryInterpreter.h"
+#import "AldCountiesWithOpportunitiesInterpreter.h"
 
 static AldDataModel *_defaultModel = nil;
 
@@ -95,6 +98,13 @@ static AldDataModel *_defaultModel = nil;
     [self enqueueRequestWithURL:@"http://api.arbetsformedlingen.se/arbetsformedling/soklista/lan" withInterpreter:interpreter andUserData:nil];
 }
 
+-(void) requestCountiesWithOpportunities
+{
+    id interpreter = [[AldCountiesWithOpportunitiesInterpreter alloc] init];
+    NSString *urlString = @"http://api.arbetsformedlingen.se/platsannons/soklista/lan";
+    [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:nil];
+}
+
 -(void) requestOfficesInCounty: (AldAFCounty *)county
 {
     if (county == nil) {
@@ -147,6 +157,13 @@ static AldDataModel *_defaultModel = nil;
     [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:office.entityId];
 }
 
+-(void) requestOpportunityCategories
+{
+    id interpreter = [[AldAFOpportunityCategoryInterpreter alloc] init];
+    NSString *urlString = @"http://api.arbetsformedlingen.se/platsannons/soklista/yrkesomraden";
+    [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:nil];
+}
+
 -(void) interpreter: (NSObject<AldJSONInterpreterProtocol> *)interpreter shouldNotifyNewData: (id)data dependantOnUserData: (id)dataKey
 {
     id userData = [NSMutableDictionary dictionary];
@@ -163,7 +180,7 @@ static AldDataModel *_defaultModel = nil;
         
         else if ([iid isEqualToString:kAldDataModelSignalCounties]) {
             @synchronized (self.counties) {
-                [self setCounties:container];
+                self.counties = container;
             }
         }
         
@@ -194,6 +211,18 @@ static AldDataModel *_defaultModel = nil;
                 } else {
                     [self.citiesInCounties.data setValue:data forKey:dataKey];
                 }
+            }
+        }
+        
+        else if ([iid isEqualToString:kAldDataModelSignalOpportunityCategories]) {
+            @synchronized (self.opportunityCategories) {
+                self.opportunityCategories = container;
+            }
+        }
+        
+        else if ([iid isEqualToString:kAldDataModelSignalCountiesWithOpportunities]) {
+            @synchronized (self.countiesWithOpportunities) {
+                self.countiesWithOpportunities = container;
             }
         }
     }

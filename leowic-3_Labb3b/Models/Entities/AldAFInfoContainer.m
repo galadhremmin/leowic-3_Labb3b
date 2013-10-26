@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 LTU. All rights reserved.
 //
 
-#import "AldAFCity.h"
+#import "AldAFInfoContainer.h"
 
-@implementation AldAFCity
+@implementation AldAFInfoContainer
 
 -(id) initWithDictionary: (NSDictionary *)dict
 {

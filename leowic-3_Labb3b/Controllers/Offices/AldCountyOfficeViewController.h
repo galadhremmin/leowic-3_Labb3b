@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AldCountySelectionViewController.h"
+#import "AldDataModel.h"
 
-@interface AldCountyOfficeViewController : AldCountySelectionViewController
+@interface AldCountyOfficeViewController : UITableViewController
+
+@property(nonatomic, weak) AldDataModel *model;
 
 @end

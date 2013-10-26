@@ -7,10 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AldJSONInterpreter.h"
+#import "AldAFInfoContainerInterpreter.h"
 
-@interface AldAFCitiesInCountyInterpreter : AldJSONInterpreter
-
--(id) interpretJSONDictionary: (NSDictionary *)data;
-
+@interface AldAFCitiesInCountyInterpreter : AldAFInfoContainerInterpreter
 @end

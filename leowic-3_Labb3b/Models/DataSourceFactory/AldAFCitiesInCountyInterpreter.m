@@ -7,7 +7,7 @@
 //
 
 #import "AldAFCitiesInCountyInterpreter.h"
-#import "AldAFCity.h"
+#import "AldAFInfoContainer.h"
 #import "AldDataModelConstants.h"
 
 @implementation AldAFCitiesInCountyInterpreter
@@ -15,19 +15,6 @@
 -(NSString *) interpretationId
 {
     return kAldDataModelSignalCity;
-}
-
--(id) interpretJSONDictionary: (NSDictionary *)data
-{
-    id cities = [[data objectForKey:@"soklista"] objectForKey:@"sokdata"];
-    NSMutableArray *result = [NSMutableArray array];
-    
-    for (NSDictionary *cityData in cities) {
-        AldAFCity *city = [[AldAFCity alloc] initWithDictionary:cityData];
-        [result addObject:city];
-    }
-    
-    return result;
 }
 
 @end

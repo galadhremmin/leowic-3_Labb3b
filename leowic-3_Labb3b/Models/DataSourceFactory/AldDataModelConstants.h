@@ -6,8 +6,10 @@
 //  Copyright (c) 2013 LTU. All rights reserved.
 //
 
-#define kAldDataModelSignalDefault  @"AFDefault"
-#define kAldDataModelSignalCounties @"AFCounty"
-#define kAldDataModelSignalOffices  @"AFOffices"
-#define kAldDataModelSignalOffice   @"AFOffice"
-#define kAldDataModelSignalCity     @"AFCity"
+#define kAldDataModelSignalDefault                   @"AFDefault"
+#define kAldDataModelSignalCounties                  @"AFCounty"
+#define kAldDataModelSignalCountiesWithOpportunities @"AFCountyOp"
+#define kAldDataModelSignalOffices                   @"AFOffices"
+#define kAldDataModelSignalOffice                    @"AFOffice"
+#define kAldDataModelSignalCity                      @"AFCity"
+#define kAldDataModelSignalOpportunityCategories     @"AFCategoryOp"

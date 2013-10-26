@@ -8,7 +8,7 @@
 
 #import "AldCitySelectionViewController.h"
 #import "AldDataModelConstants.h"
-#import "AldAFCity.h"
+#import "AldAFInfoContainer.h"
 
 @implementation AldCitySelectionViewController
 
@@ -40,7 +40,7 @@
 
 -(void) initCell: (UITableViewCell *)cell withData: (id)entity
 {
-    AldAFCity *city = (AldAFCity *)entity;
+    AldAFInfoContainer *city = (AldAFInfoContainer *)entity;
     
     cell.textLabel.text = city.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d annonser. %d lediga jobb.", city.amountOfAds, city.amountOfOpportunities];
