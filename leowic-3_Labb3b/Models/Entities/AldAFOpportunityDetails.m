@@ -40,8 +40,8 @@
         data = [dict objectForKey:@"ansokan"];
         
         [self setApplicationReference:  [data objectForKey:@"referens"]];
-        [self setApplicationInformation:[data objectForKey:@"epostadress"]];
-        [self setApplicationEmail:      [data objectForKey:@"ovrigt_om_ansokan"]];
+        [self setApplicationEmail:      [data objectForKey:@"epostadress"]];
+        [self setApplicationInformation:[data objectForKey:@"ovrigt_om_ansokan"]];
         
         data = [dict objectForKey:@"arbetsplats"];
         
