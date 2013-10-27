@@ -30,4 +30,9 @@
     return self;
 }
 
+-(NSComparisonResult) localizedCaseInsensitiveCompare: (AldAFOpportunity *)other
+{
+    return [self.name localizedCaseInsensitiveCompare:other.name];
+}
+
 @end

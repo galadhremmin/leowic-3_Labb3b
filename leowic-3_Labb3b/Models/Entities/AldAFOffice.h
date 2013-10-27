@@ -14,4 +14,6 @@
 @property(nonatomic, copy) NSString *entityId;
 @property(nonatomic, copy) NSString *name;
 
+-(NSComparisonResult) localizedCaseInsensitiveCompare: (AldAFOffice *)other;
+
 @end

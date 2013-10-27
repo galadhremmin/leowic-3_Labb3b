@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AldDataModel.h"
 
-@interface AldAlphabeticSectionsTableViewController : UITableViewController
+@interface AldAlphabeticSectionsTableViewController : UITableViewController<UISearchBarDelegate>
 
 @property (nonatomic, weak) AldDataModel *model;
 
@@ -22,5 +22,6 @@
 -(void) requestDataFromModel: (AldDataModel *)model;
 -(void) initCell: (UITableViewCell *)cell withData: (id)entity;
 -(id)   selectedData;
+-(void) performSearchWithString: (NSString *)searchQuery;
 
 @end

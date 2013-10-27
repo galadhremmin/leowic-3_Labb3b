@@ -19,4 +19,6 @@
 @property(nonatomic)         NSInteger   relevanceLevel;
 @property(nonatomic)         NSInteger   numberOfVacancies;
 
+-(NSComparisonResult) localizedCaseInsensitiveCompare: (AldAFOpportunity *)other;
+
 @end

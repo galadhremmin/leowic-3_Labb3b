@@ -44,7 +44,14 @@
     cell.textLabel.text = category.name;
 }
 
-#pragma mark Segue selectors
+#pragma mark - Search selectors
+
+-(void) performSearchWithString: (NSString *)searchQuery
+{
+    [self.model requestOpportunityCategoriesForString:searchQuery];
+}
+
+#pragma mark - Segue selectors
 
 -(void) prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
 {

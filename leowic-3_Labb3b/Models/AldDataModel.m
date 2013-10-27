@@ -164,6 +164,20 @@ static AldDataModel *_defaultModel = nil;
     [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:nil];
 }
 
+-(void) requestOpportunityCategoriesForString: (NSString *)searchString
+{
+    // Remove unsupported characters
+    NSError *error = nil;
+    NSRegularExpression *sanitizeQuery = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z0-9åäöÅÄÖ\\-_\\s]" options: NSRegularExpressionCaseInsensitive error:&error];
+    
+    NSString *sanitizedQuery = [sanitizeQuery stringByReplacingMatchesInString:searchString options:0 range:NSMakeRange(0, searchString.length) withTemplate:@""];
+    
+    // Look for the sanitized string
+    id interpreter = [[AldAFOpportunityCategoryInterpreter alloc] init];
+    NSString *urlString = [NSString stringWithFormat:@"http://api.arbetsformedlingen.se/platsannons/soklista/yrken/%@", sanitizedQuery];
+    [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:nil];
+}
+
 -(void) requestOpportunitiesForCategory: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city
 {
     id interpreter = [[AldAFOpportunityInterpreter alloc] init];

@@ -28,4 +28,6 @@
 @property(nonatomic, copy) NSString  *personalServiceHours;
 @property(nonatomic, copy) NSString  *extraInformation;
 
+-(NSComparisonResult) localizedCaseInsensitiveCompare: (AldAFOfficeDetails *)other;
+
 @end

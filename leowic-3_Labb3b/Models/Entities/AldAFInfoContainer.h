@@ -16,4 +16,6 @@
 @property(nonatomic)       NSInteger   amountOfAds;
 @property(nonatomic)       NSInteger   amountOfOpportunities;
 
+-(NSComparisonResult) localizedCaseInsensitiveCompare: (AldAFInfoContainer *)other;
+
 @end

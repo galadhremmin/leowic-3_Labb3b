@@ -63,10 +63,16 @@
     [self populateEntities:entities];
 }
 
+
 -(void) populateEntities:(NSArray *)entities
 {
     _data = [NSMutableDictionary dictionary];
-    for (AldAFOffice *entity in entities) {
+
+    // Sort the array
+    NSArray *sortedEntities = [entities sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+
+    // Build the data source
+    for (AldAFOffice *entity in sortedEntities) {
         
         // try to find a section associated with the specified entity name
         NSString *section = [NSString stringWithFormat:@"%d", [self sectionIndexForTitle:[self titleForEntity:entity]]];
@@ -208,6 +214,8 @@
     [NSException raise:@"Not implemented!" format:@"initCell:withData: must be implemented."];
 }
 
+#pragma mark - Data selection selectors
+
 -(id) selectedData
 {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
@@ -221,6 +229,37 @@
     }
     
     return [entities objectAtIndex:indexPath.row];
+}
+
+#pragma mark - Search delegation
+
+-(void) performSearchWithString: (NSString *)searchQuery
+{
+    [NSException raise:@"Not implemented!" format:@"search:withModel: must be implemented."];
+}
+
+// called when keyboard search button pressed
+-(void) searchBarSearchButtonClicked: (UISearchBar *)searchBar
+{
+    [self performSearchWithString:searchBar.text];
+}
+
+// called when bookmark button pressed
+-(void) searchBarBookmarkButtonClicked: (UISearchBar *)searchBar
+{
+    
+}
+
+// called when cancel button pressed
+-(void) searchBarCancelButtonClicked: (UISearchBar *)searchBar
+{
+    
+}
+
+// called when search results button pressed
+-(void) searchBarResultsListButtonClicked: (UISearchBar *)searchBar
+{
+    
 }
 
 @end

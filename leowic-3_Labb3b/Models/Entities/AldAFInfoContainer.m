@@ -23,4 +23,10 @@
     return self;
 }
 
+
+-(NSComparisonResult) localizedCaseInsensitiveCompare: (AldAFInfoContainer *)other
+{
+    return [self.name localizedCaseInsensitiveCompare:other.name];
+}
+
 @end

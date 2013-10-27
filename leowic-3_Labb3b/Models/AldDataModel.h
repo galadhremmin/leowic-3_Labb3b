@@ -29,6 +29,7 @@
 -(void) requestCitiesInCounty: (AldAFCounty *)county;
 -(void) requestDetailsForOffice: (AldAFOffice *)office;
 -(void) requestOpportunityCategories;
+-(void) requestOpportunityCategoriesForString: (NSString *)searchString;
 -(void) requestOpportunitiesForCategory: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city;
 
 @end

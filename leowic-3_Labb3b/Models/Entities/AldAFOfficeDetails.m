@@ -35,4 +35,9 @@
     return self;
 }
 
+-(NSComparisonResult) localizedCaseInsensitiveCompare: (AldAFOfficeDetails *)other
+{
+    return [self.name localizedCaseInsensitiveCompare:other.name];
+}
+
 @end

@@ -21,4 +21,9 @@
     return self;
 }
 
+-(NSComparisonResult) localizedCaseInsensitiveCompare: (AldAFCounty *)other
+{
+    return [self.name localizedCaseInsensitiveCompare:other.name];
+}
+
 @end
