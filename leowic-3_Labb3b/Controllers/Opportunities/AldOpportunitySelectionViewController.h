@@ -13,5 +13,6 @@
 
 @property(nonatomic, weak) AldAFInfoContainer *city;
 @property(nonatomic, weak) AldAFInfoContainer *opportunityCategory;
+@property(nonatomic, weak) AldAFInfoContainer *opportunityField;
 
 @end

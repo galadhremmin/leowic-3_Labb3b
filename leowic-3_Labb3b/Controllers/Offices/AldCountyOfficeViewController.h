@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AldAlphabeticSectionsTableViewController.h"
 #import "AldDataModel.h"
 
-@interface AldCountyOfficeViewController : UITableViewController
+@interface AldCountyOfficeViewController : AldAlphabeticSectionsTableViewController
 
 @property(nonatomic, weak) AldDataModel *model;
 

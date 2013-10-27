@@ -34,6 +34,7 @@
 		D750C6AD180C741C000D762A /* AldAFOfficeDetailInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = D750C6AC180C741C000D762A /* AldAFOfficeDetailInterpreter.m */; };
 		D7926B56181C71FA004A8EC5 /* AldAFOpportunity.m in Sources */ = {isa = PBXBuildFile; fileRef = D7926B55181C71FA004A8EC5 /* AldAFOpportunity.m */; };
 		D7926B59181C744E004A8EC5 /* AldAFOpportunityInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = D7926B58181C744E004A8EC5 /* AldAFOpportunityInterpreter.m */; };
+		D797F907181D5858009726AB /* AldAFOpportunityDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = D797F906181D5858009726AB /* AldAFOpportunityDetails.m */; };
 		D7D252F918184C290017FC24 /* AldAFInfoContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D252F818184C290017FC24 /* AldAFInfoContainer.m */; };
 		D7D252FC18184D850017FC24 /* AldAFCitiesInCountyInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D252FB18184D850017FC24 /* AldAFCitiesInCountyInterpreter.m */; };
 		D7D252FF18184FC90017FC24 /* AldAlphabeticSectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D252FE18184FC90017FC24 /* AldAlphabeticSectionsTableViewController.m */; };
@@ -96,6 +97,8 @@
 		D7926B55181C71FA004A8EC5 /* AldAFOpportunity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AldAFOpportunity.m; sourceTree = "<group>"; };
 		D7926B57181C744E004A8EC5 /* AldAFOpportunityInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AldAFOpportunityInterpreter.h; sourceTree = "<group>"; };
 		D7926B58181C744E004A8EC5 /* AldAFOpportunityInterpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AldAFOpportunityInterpreter.m; sourceTree = "<group>"; };
+		D797F905181D5858009726AB /* AldAFOpportunityDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AldAFOpportunityDetails.h; sourceTree = "<group>"; };
+		D797F906181D5858009726AB /* AldAFOpportunityDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AldAFOpportunityDetails.m; sourceTree = "<group>"; };
 		D7D252F718184C290017FC24 /* AldAFInfoContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AldAFInfoContainer.h; sourceTree = "<group>"; };
 		D7D252F818184C290017FC24 /* AldAFInfoContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AldAFInfoContainer.m; sourceTree = "<group>"; };
 		D7D252FA18184D850017FC24 /* AldAFCitiesInCountyInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AldAFCitiesInCountyInterpreter.h; sourceTree = "<group>"; };
@@ -206,12 +209,12 @@
 			children = (
 				D750C693180C5E37000D762A /* DataSourceFactory */,
 				D750C686180C3BA1000D762A /* Entities */,
-				D750C683180C3B4D000D762A /* AldDataModel.h */,
-				D750C684180C3B4D000D762A /* AldDataModel.m */,
 				D750C68E180C473E000D762A /* AldRequestState.h */,
 				D750C68F180C473E000D762A /* AldRequestState.m */,
 				D7E1238618156E8400217EDE /* AldModelledData.h */,
 				D7E1238718156E8400217EDE /* AldModelledData.m */,
+				D750C683180C3B4D000D762A /* AldDataModel.h */,
+				D750C684180C3B4D000D762A /* AldDataModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -230,6 +233,8 @@
 				D7D252F818184C290017FC24 /* AldAFInfoContainer.m */,
 				D7926B54181C71FA004A8EC5 /* AldAFOpportunity.h */,
 				D7926B55181C71FA004A8EC5 /* AldAFOpportunity.m */,
+				D797F905181D5858009726AB /* AldAFOpportunityDetails.h */,
+				D797F906181D5858009726AB /* AldAFOpportunityDetails.m */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -359,6 +364,7 @@
 				D750C65C180C37E6000D762A /* main.m in Sources */,
 				D7005341181C1CB700BB47D1 /* AldAFInfoContainerInterpreter.m in Sources */,
 				D750C660180C37E6000D762A /* AldAppDelegate.m in Sources */,
+				D797F907181D5858009726AB /* AldAFOpportunityDetails.m in Sources */,
 				D750C685180C3B4D000D762A /* AldDataModel.m in Sources */,
 				D700534A181C248E00BB47D1 /* AldOpportunityCategorySelectionViewController.m in Sources */,
 				D750C689180C3C2A000D762A /* AldAFCounty.m in Sources */,

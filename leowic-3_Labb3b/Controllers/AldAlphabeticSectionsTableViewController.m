@@ -104,6 +104,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modelDataLoaded:) name:[self dataModelSignalIdentifier] object:nil];
     
     [self requestDataFromModel:_model];
+    _displayingSearchResults = NO;
+}
+
+-(void) viewWillDisappear: (BOOL)animated
+{
+    // Hide the keyboard if it is active.
+    [self.searchBar resignFirstResponder];
+    _displayingSearchResults = NO;
 }
 
 -(void) viewDidDisappear: (BOOL)animated
@@ -241,6 +249,7 @@
 // called when keyboard search button pressed
 -(void) searchBarSearchButtonClicked: (UISearchBar *)searchBar
 {
+    _displayingSearchResults = YES;
     [self performSearchWithString:searchBar.text];
 }
 
@@ -253,7 +262,10 @@
 // called when cancel button pressed
 -(void) searchBarCancelButtonClicked: (UISearchBar *)searchBar
 {
-    
+    [searchBar setText:@""];
+    [searchBar resignFirstResponder];
+    [self requestDataFromModel:_model];
+    _displayingSearchResults = NO;
 }
 
 // called when search results button pressed

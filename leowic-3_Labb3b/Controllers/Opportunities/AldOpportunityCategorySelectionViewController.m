@@ -12,11 +12,15 @@
 
 @implementation AldOpportunityCategorySelectionViewController
 
+#pragma mark - View events
+
 -(void) viewDidLoad
 {
     [super viewDidLoad];
     [self setTitle:self.city.name];
 }
+
+#pragma mark - AldAlphabeticSelectionViewController command selectors
 
 -(NSString *) dataModelSignalIdentifier
 {
@@ -57,8 +61,26 @@
 {
     if ([[segue identifier] isEqualToString:@"opportunity"]) {
         AldOpportunitySelectionViewController *nextController = (AldOpportunitySelectionViewController *)segue.destinationViewController;
+        
         [nextController setCity:_city];
-        [nextController setOpportunityCategory:[self selectedData]];
+        
+        // A bit of a sloppy implementation due to time constraints -
+        // this control can and will display two different forms of
+        // entities depending on the selected data source at the time.
+        // Unfortunately, it's impossible to distinguish the two entities
+        // from one another as they are structurally the same.
+        //
+        // For this reason, use the search flag to determine the data
+        // source while feeding the right field or category to the
+        // next controller. 
+        id data = [self selectedData];
+        if (self.displayingSearchResults) {
+            [nextController setOpportunityCategory:nil];
+            [nextController setOpportunityField:data];
+        } else {
+            [nextController setOpportunityCategory:data];
+            [nextController setOpportunityField:nil];
+        }
     }
 }
 

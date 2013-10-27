@@ -12,6 +12,8 @@
 @interface AldAlphabeticSectionsTableViewController : UITableViewController<UISearchBarDelegate>
 
 @property (nonatomic, weak) AldDataModel *model;
+@property (nonatomic, weak) IBOutlet UISearchBar *searchBar;
+@property(nonatomic) BOOL displayingSearchResults;
 
 -(NSString *) dataModelSignalIdentifier;
 -(NSArray *)  entitiesFromModel;

@@ -178,10 +178,27 @@ static AldDataModel *_defaultModel = nil;
     [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:nil];
 }
 
--(void) requestOpportunitiesForCategory: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city
+-(void) requestOpportunitiesForCategory: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city searchQuery: (NSString *)query
 {
     id interpreter = [[AldAFOpportunityInterpreter alloc] init];
-    NSString *urlString = [NSString stringWithFormat: @"http://api.arbetsformedlingen.se/platsannons/matchning?yrkesomradeid=%@&kommunid=%@", category.entityId, city.entityId];
+    NSMutableString *urlString = [NSMutableString stringWithFormat: @"http://api.arbetsformedlingen.se/platsannons/matchning?yrkesomradeid=%@&kommunid=%@", category.entityId, city.entityId];
+    
+    if (query != nil && query.length > 0) {
+        [urlString appendFormat:@"&nyckelord=%@", [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]];
+    }
+    
+    [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:nil];
+}
+
+-(void) requestOpportunitiesForField: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city searchQuery: (NSString *)query
+{
+    id interpreter = [[AldAFOpportunityInterpreter alloc] init];
+    NSMutableString *urlString = [NSMutableString stringWithFormat: @"http://api.arbetsformedlingen.se/platsannons/matchning?yrkesid=%@&kommunid=%@", category.entityId, city.entityId];
+    
+    if (query != nil && query.length > 0) {
+        [urlString appendFormat:@"&nyckelord=%@", [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]];
+    }
+    
     [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:nil];
 }
 

@@ -12,58 +12,40 @@
 
 @implementation AldCountyOfficeViewController
 
--(void) viewDidLoad
+-(NSString *) dataModelSignalIdentifier
 {
-    [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveCountyArray:) name:kAldDataModelSignalCounties object:nil];
+    return kAldDataModelSignalCounties;
+}
+
+-(NSArray *) entitiesFromModel
+{
+    return self.model.counties.data;
+}
+
+-(NSString *) titleForEntity: (id)entity
+{
+    return [entity name];
+}
+
+-(void) requestDataFromModel: (AldDataModel *)model
+{
+    [model requestCounties];
+}
+
+-(void) initCell: (UITableViewCell *)cell withData: (id)entity
+{
+    AldAFInfoContainer *city = (AldAFInfoContainer *)entity;
     
-    _model = [AldDataModel defaultModel];
-    [_model requestCounties];
+    cell.textLabel.text = city.name;
 }
 
-#pragma mark - Notification center
-
--(void) receiveCountyArray: (NSNotification *)notification
-{
-    UITableView *view = (UITableView *)self.view;
-    [view reloadData];
-}
-
-#pragma mark - Table View
-
--(NSInteger) numberOfSectionsInTableView: (UITableView *)tableView
-{
-    return 1;
-}
-
--(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection: (NSInteger)section
-{
-    if (_model.counties == nil) {
-        return 0;
-    }
-    
-    return [_model.counties.data count];
-}
-
--(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath: (NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    
-    AldAFCounty *object = _model.counties.data[indexPath.row];
-    cell.textLabel.text = [object name];
-    return cell;
-}
-
-#pragma mark - Segue events
+#pragma mark Segue selectors
 
 -(void) prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
 {
     if ([[segue identifier] isEqualToString:@"officeSelection"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        id object = [self.model.counties.data objectAtIndex:indexPath.row];
-        
         AldOfficeSelectionViewController *nextController = (AldOfficeSelectionViewController *)segue.destinationViewController;
-        [nextController setCounty:object];
+        [nextController setCounty:[self selectedData]];
     }
 }
 

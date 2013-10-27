@@ -13,60 +13,42 @@
 
 @implementation AldCountyOpportunitiesViewController
 
--(void) viewDidLoad
+
+-(NSString *) dataModelSignalIdentifier
 {
-    [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveCountyArray:) name:kAldDataModelSignalCountiesWithOpportunities object:nil];
+    return kAldDataModelSignalCountiesWithOpportunities;
+}
+
+-(NSArray *) entitiesFromModel
+{
+    return self.model.countiesWithOpportunities.data;
+}
+
+-(NSString *) titleForEntity: (id)entity
+{
+    return [entity name];
+}
+
+-(void) requestDataFromModel: (AldDataModel *)model
+{
+    [model requestCountiesWithOpportunities];
+}
+
+-(void) initCell: (UITableViewCell *)cell withData: (id)entity
+{
+    AldAFInfoContainer *object = (AldAFInfoContainer *)entity;
     
-    _model = [AldDataModel defaultModel];
-    [_model requestCountiesWithOpportunities];
-}
-
-#pragma mark - Notification center
-
--(void) receiveCountyArray: (NSNotification *)notification
-{
-    UITableView *view = (UITableView *)self.view;
-    [view reloadData];
-}
-
-#pragma mark - Table View
-
--(NSInteger) numberOfSectionsInTableView: (UITableView *)tableView
-{
-    return 1;
-}
-
--(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection: (NSInteger)section
-{
-    if (_model.counties == nil) {
-        return 0;
-    }
-    
-    return [_model.countiesWithOpportunities.data count];
-}
-
--(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath: (NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    
-    AldAFInfoContainer *object = _model.countiesWithOpportunities.data[indexPath.row];
     cell.textLabel.text = [object name];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d annonser. %d lediga jobb.", object.amountOfAds, object.amountOfOpportunities];
-
-    return cell;
 }
 
-#pragma mark - Segue events
+#pragma mark Segue selectors
 
 -(void) prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
 {
     if ([[segue identifier] isEqualToString:@"citySelection"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        id object = [self.model.counties.data objectAtIndex:indexPath.row];
-        
         AldCitySelectionViewController *nextController = (AldCitySelectionViewController *)segue.destinationViewController;
-        [nextController setCounty:object];
+        [nextController setCounty:[self selectedData]];
     }
 }
 

@@ -7,8 +7,9 @@
 //
 
 #import "AldDataModel.h"
+#import "AldAlphabeticSectionsTableViewController.h"
 
-@interface AldCountyOpportunitiesViewController : UITableViewController
+@interface AldCountyOpportunitiesViewController : AldAlphabeticSectionsTableViewController
 
 @property(nonatomic, weak) AldDataModel *model;
 

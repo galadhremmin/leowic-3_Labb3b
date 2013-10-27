@@ -30,6 +30,7 @@
 -(void) requestDetailsForOffice: (AldAFOffice *)office;
 -(void) requestOpportunityCategories;
 -(void) requestOpportunityCategoriesForString: (NSString *)searchString;
--(void) requestOpportunitiesForCategory: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city;
+-(void) requestOpportunitiesForCategory: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city searchQuery: (NSString *)query;
+-(void) requestOpportunitiesForField: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city searchQuery: (NSString *)query;
 
 @end

@@ -12,11 +12,20 @@
 
 @implementation AldOpportunitySelectionViewController
 
+#pragma mark - View events
+
 -(void) viewDidLoad
 {
     [super viewDidLoad];
     [self setTitle:self.opportunityCategory.name];
 }
+
+-(void) viewWillDisappear: (BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+#pragma mark - AldAlphabeticSelectionViewController command selectors
 
 -(NSString *) dataModelSignalIdentifier
 {
@@ -35,7 +44,11 @@
 
 -(void) requestDataFromModel: (AldDataModel *)model
 {
-    [model requestOpportunitiesForCategory:_opportunityCategory inCity:_city];
+    if (_opportunityCategory != nil) {
+        [model requestOpportunitiesForCategory:_opportunityCategory inCity:_city searchQuery:nil];
+    } else {
+        [model requestOpportunitiesForField:_opportunityField inCity:_city searchQuery:nil];
+    }
 }
 
 -(void) initCell: (UITableViewCell *)cell withData: (id)entity
@@ -52,6 +65,19 @@
         cell.imageView.image = [UIImage imageWithData:data];
     }
     */
+}
+
+#pragma mark - Search selectors
+
+-(void) performSearchWithString: (NSString *)searchQuery
+{
+    AldDataModel *model = self.model;
+    
+    if (_opportunityCategory != nil) {
+        [model requestOpportunitiesForCategory:_opportunityCategory inCity:_city searchQuery:searchQuery];
+    } else {
+        [model requestOpportunitiesForField:_opportunityField inCity:_city searchQuery:searchQuery];
+    }
 }
 
 @end
