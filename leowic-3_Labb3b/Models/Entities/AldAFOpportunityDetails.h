@@ -18,11 +18,12 @@
 @property(nonatomic, copy)   NSString   *opportunityFieldId;
 @property(nonatomic, strong) NSDate     *publishDate;
 @property(nonatomic)         NSInteger   numberOfVacancies;
-
 @property(nonatomic, copy)   NSString   *cityName;
+
 @property(nonatomic, copy)   NSString   *duration;
 @property(nonatomic, copy)   NSString   *workHours;
 @property(nonatomic, copy)   NSString   *workHoursSpan;
+@property(nonatomic, copy)   NSString   *workPeriodBegins;
 @property(nonatomic, copy)   NSString   *salaryType;
 @property(nonatomic, copy)   NSString   *salaryForm;
 

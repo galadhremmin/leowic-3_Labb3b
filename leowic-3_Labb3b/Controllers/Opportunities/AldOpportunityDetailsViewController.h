@@ -11,6 +11,19 @@
 
 @interface AldOpportunityDetailsViewController : UITableViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *roleNameLabel;
+@property (weak, nonatomic) IBOutlet UITextView *roleDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberOfVacanciesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *publishDateLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *durationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *workHoursLabel;
+@property (weak, nonatomic) IBOutlet UILabel *workHoursSpanLabel;
+@property (weak, nonatomic) IBOutlet UILabel *salaryTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *salaryFormLabel;
+@property (weak, nonatomic) IBOutlet UILabel *workPeriodBeginsLabel;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *applicationReferenceLabel;

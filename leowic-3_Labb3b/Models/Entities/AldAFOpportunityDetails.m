@@ -31,11 +31,12 @@
         
         data = [dict objectForKey:@"villkor"];
         
-        [self setDuration:     [data objectForKey:@"varaktighet"]];
-        [self setWorkHours:    [data objectForKey:@"arbetstid"]];
-        [self setWorkHoursSpan:[data objectForKey:@"arbetstidvaraktighet"]];
-        [self setSalaryType:   [data objectForKey:@"lonetyp"]];
-        [self setSalaryForm:   [data objectForKey:@"loneform"]];
+        [self setDuration:        [data objectForKey:@"varaktighet"]];
+        [self setWorkHours:       [data objectForKey:@"arbetstid"]];
+        [self setWorkHoursSpan:   [data objectForKey:@"arbetstidvaraktighet"]];
+        [self setWorkPeriodBegins:[data objectForKey:@"tilltrade"]];
+        [self setSalaryType:      [data objectForKey:@"lonetyp"]];
+        [self setSalaryForm:      [data objectForKey:@"loneform"]];
 
         data = [dict objectForKey:@"ansokan"];
         date = [formatter dateFromString:[data objectForKey:@"sista_ansokningsdag"]];
