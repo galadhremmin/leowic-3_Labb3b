@@ -11,6 +11,25 @@
 
 @interface AldOpportunityDetailsViewController : UITableViewController
 
+
+
+@property (weak, nonatomic) IBOutlet UILabel *applicationReferenceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *applicationEmailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *applicationDeadlineLabel;
+@property (weak, nonatomic) IBOutlet UILabel *applicationInformationLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *employerNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *employerZipCodeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *employerAddressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *employerCityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *employerCountryLabel;
+@property (weak, nonatomic) IBOutlet UILabel *employerVisitorAddressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *employerVisitorCityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *employerPhoneNumberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *employerFaxNumberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *employerEmailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *employerWebsiteLabel;
+
 @property(nonatomic, weak) AldAFOpportunity *opportunity;
 
 @end

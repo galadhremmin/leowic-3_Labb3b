@@ -19,7 +19,7 @@
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
-        NSDate *publishDate = [formatter dateFromString:[data objectForKey:@"publiceraddatum"]];
+        NSDate *date = [formatter dateFromString:[data objectForKey:@"publiceraddatum"]];
         
         [self setEntityId:          [data objectForKey:@"annonsid"]];
         [self setName:              [data objectForKey:@"annonsrubrik"]];
@@ -27,7 +27,7 @@
         [self setRoleName:          [data objectForKey:@"yrkesbenamning"]];
         [self setOpportunityFieldId:[data objectForKey:@"yrkesid"]];
         [self setNumberOfVacancies: [[data objectForKey:@"antal_platser"] integerValue]];
-        [self setPublishDate:       publishDate];
+        [self setPublishDate:       date];
         
         data = [dict objectForKey:@"villkor"];
         
@@ -38,9 +38,11 @@
         [self setSalaryForm:   [data objectForKey:@"loneform"]];
 
         data = [dict objectForKey:@"ansokan"];
+        date = [formatter dateFromString:[data objectForKey:@"sista_ansokningsdag"]];
         
         [self setApplicationReference:  [data objectForKey:@"referens"]];
         [self setApplicationEmail:      [data objectForKey:@"epostadress"]];
+        [self setApplicationDeadline:   date];
         [self setApplicationInformation:[data objectForKey:@"ovrigt_om_ansokan"]];
         
         data = [dict objectForKey:@"arbetsplats"];

@@ -28,6 +28,7 @@
 
 @property(nonatomic, copy)   NSString   *applicationReference;
 @property(nonatomic, copy)   NSString   *applicationEmail;
+@property(nonatomic, strong) NSDate     *applicationDeadline;
 @property(nonatomic, copy)   NSString   *applicationInformation;
 
 @property(nonatomic, copy)   NSString   *employerName;

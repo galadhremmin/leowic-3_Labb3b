@@ -35,7 +35,28 @@
 {
     AldAFOpportunityDetails *details = (AldAFOpportunityDetails *)[notification.userInfo objectForKey:kAldDataModelSignalOpportunityDetails];
     
-    NSLog(@"%@", details);
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    
+    [self.applicationReferenceLabel setText:details.applicationReference];
+    [self.applicationEmailLabel setText:details.applicationEmail];
+    [self.applicationDeadlineLabel setText:[formatter stringFromDate:details.applicationDeadline]];
+    [self.applicationInformationLabel setText:details.applicationInformation];
+    
+    [self.employerNameLabel setText:details.employerName];
+    [self.employerZipCodeLabel setText:details.employerZipCode];
+    [self.employerAddressLabel setText:details.employerAddress];
+    [self.employerCityLabel setText:details.employerCity];
+    [self.employerCountryLabel setText:details.employerCountry];
+    [self.employerVisitorAddressLabel setText:details.employerVisitorAddress];
+    [self.employerVisitorCityLabel setText:details.employerVisitorCity];
+    [self.employerPhoneNumberLabel setText:details.employerPhoneNumber];
+    [self.employerFaxNumberLabel setText:details.employerFaxNumber];
+    [self.employerEmailLabel setText:details.employerEmail];
+    [self.employerWebsiteLabel setText:details.employerWebsite];
+    
+    UITableView *view = (UITableView *)self.view;
+    [view reloadData];
 }
 
 @end
