@@ -7,9 +7,15 @@
 //
 
 #import "AldAFOpportunityInterpreter.h"
+#import "AldDataModelConstants.h"
 #import "AldAFOpportunity.h"
 
 @implementation AldAFOpportunityInterpreter
+
+-(NSString *)interpretationId
+{
+    return kAldDataModelSignalOpportunities;
+}
 
 -(id) interpretJSONDictionary: (NSDictionary *)data
 {

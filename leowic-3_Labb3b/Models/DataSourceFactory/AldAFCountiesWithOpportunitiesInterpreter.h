@@ -10,5 +10,4 @@
 #import "AldAFInfoContainerInterpreter.h"
 
 @interface AldAFCountiesWithOpportunitiesInterpreter : AldAFInfoContainerInterpreter
-
 @end

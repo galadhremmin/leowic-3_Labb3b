@@ -13,3 +13,5 @@
 #define kAldDataModelSignalOffice                    @"AFOffice"
 #define kAldDataModelSignalCity                      @"AFCity"
 #define kAldDataModelSignalOpportunityCategories     @"AFCategoryOp"
+#define kAldDataModelSignalOpportunities             @"AFOps"
+#define kAldDataModelSignalOpportunityDetails        @"AFOpDetails"

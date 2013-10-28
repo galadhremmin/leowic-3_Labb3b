@@ -15,7 +15,7 @@
 
 @interface AldOfficeDetailsViewController ()
 
-@property (nonatomic, strong) AldDataModel *model;
+@property (nonatomic, weak) AldDataModel *model;
 
 @end
 
@@ -31,12 +31,6 @@
     _model = [AldDataModel defaultModel];
     [_model requestDetailsForOffice:self.office];
     
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void) openMap

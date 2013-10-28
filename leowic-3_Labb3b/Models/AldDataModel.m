@@ -11,6 +11,7 @@
 #import "AldDataModel.h"
 #import "AldModelledData.h"
 #import "AldJSONInterpreterProtocol.h"
+#import "AldRequestState.h"
 #import "AldAFCountyInterpreter.h"
 #import "AldAFOfficesInCountyInterpreter.h"
 #import "AldAFCitiesInCountyInterpreter.h"
@@ -18,7 +19,7 @@
 #import "AldAFOpportunityCategoryInterpreter.h"
 #import "AldAFCountiesWithOpportunitiesInterpreter.h"
 #import "AldAFOpportunityInterpreter.h"
-#import "AldRequestState.h"
+#import "AldAFOpportunityDetailsInterpreter.h"
 
 static AldDataModel *_defaultModel = nil;
 
@@ -202,6 +203,14 @@ static AldDataModel *_defaultModel = nil;
     [self enqueueRequestWithURL:urlString withInterpreter:interpreter andUserData:nil];
 }
 
+-(void) requestOpportunityDetails: (AldAFOpportunity *)opportunity
+{
+    NSString *url = [NSString stringWithFormat:@"http://api.arbetsformedlingen.se/platsannons/%@", opportunity.entityId];
+    
+    id interpreter = [[AldAFOpportunityDetailsInterpreter alloc] init];
+    [self enqueueRequestWithURL:url withInterpreter:interpreter andUserData:nil];
+}
+
 -(void) interpreter: (NSObject<AldJSONInterpreterProtocol> *)interpreter shouldNotifyNewData: (id)data dependantOnUserData: (id)dataKey
 {
     id userData = [NSMutableDictionary dictionary];
@@ -210,13 +219,7 @@ static AldDataModel *_defaultModel = nil;
     if (data != nil) {
         id container = [[AldModelledData alloc] initWithData:data forKey:dataKey];
         
-        if ([iid isEqualToString:kAldDataModelSignalDefault]) {
-            // default message, assign the result as user data and pass it on, as there is
-            // no container for these sort of messages.
-            [userData setValue:data forKey:kAldDataModelSignalDefault];
-        }
-        
-        else if ([iid isEqualToString:kAldDataModelSignalCounties]) {
+        if ([iid isEqualToString:kAldDataModelSignalCounties]) {
             @synchronized (self.counties) {
                 self.counties = container;
             }
@@ -262,6 +265,12 @@ static AldDataModel *_defaultModel = nil;
             @synchronized (self.countiesWithOpportunities) {
                 self.countiesWithOpportunities = container;
             }
+        }
+        
+        else {
+            // default message, assign the result as user data and pass it on, as there is
+            // no container for these sort of messages.
+            [userData setValue:data forKey:iid];
         }
     }
     

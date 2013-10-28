@@ -11,7 +11,7 @@
 
 @interface AldJSONInterpreter : NSObject<AldJSONInterpreterProtocol>
 
--(id) interpretJSON:(NSData *)data;
--(id) interpretJSONDictionary:(NSDictionary *)data; // <~~ "abstract" ie must be implemented
+-(id) interpretJSON: (NSData *)data;
+-(id) interpretJSONDictionary: (NSDictionary *)data; // <~~ "abstract" ie must be implemented
 
 @end

@@ -11,6 +11,7 @@
 #import "AldAFOffice.h"
 #import "AldModelledData.h"
 #import "AldAFInfoContainer.h"
+#import "AldAFOpportunity.h"
 
 @interface AldDataModel : NSObject<NSURLConnectionDelegate>
 
@@ -32,5 +33,6 @@
 -(void) requestOpportunityCategoriesForString: (NSString *)searchString;
 -(void) requestOpportunitiesForCategory: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city searchQuery: (NSString *)query;
 -(void) requestOpportunitiesForField: (AldAFInfoContainer *)category inCity: (AldAFInfoContainer *)city searchQuery: (NSString *)query;
+-(void) requestOpportunityDetails: (AldAFOpportunity *)opportunity;
 
 @end

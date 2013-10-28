@@ -45,7 +45,7 @@
 
 -(void) modelDataLoaded: (NSNotification *)notification
 {
-    id userInfo = [notification.userInfo objectForKey:kAldDataModelSignalDefault];
+    id userInfo = [notification.userInfo objectForKey:[self dataModelSignalIdentifier]];
     if (userInfo == nil) {
         [self populateFromModel];
     } else {

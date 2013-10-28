@@ -7,6 +7,7 @@
 //
 
 #import "AldOpportunitySelectionViewController.h"
+#import "AldOpportunityDetailsViewController.h"
 #import "AldDataModelConstants.h"
 #import "AldAFOpportunity.h"
 
@@ -29,7 +30,7 @@
 
 -(NSString *) dataModelSignalIdentifier
 {
-    return kAldDataModelSignalDefault;
+    return kAldDataModelSignalOpportunities;
 }
 
 -(NSArray *) entitiesFromModel
@@ -77,6 +78,16 @@
         [model requestOpportunitiesForCategory:_opportunityCategory inCity:_city searchQuery:searchQuery];
     } else {
         [model requestOpportunitiesForField:_opportunityField inCity:_city searchQuery:searchQuery];
+    }
+}
+
+#pragma mark - Segue nagivation
+
+-(void) prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
+{
+    if ([[segue identifier] isEqualToString:@"opportunityDetails"]) {
+        AldOpportunityDetailsViewController *nextController = (AldOpportunityDetailsViewController *)segue.destinationViewController;
+        [nextController setOpportunity:[self selectedData]];
     }
 }
 
