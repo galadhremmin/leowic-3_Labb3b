@@ -10,6 +10,7 @@
 #import "AldDataModel.h"
 #import "AldDataModelConstants.h"
 #import "AldAFOpportunityDetails.h"
+#import "AldPhoneInteraction.h"
 
 @interface AldOpportunityDetailsViewController ()
 
@@ -71,6 +72,48 @@
     
     UITableView *view = (UITableView *)self.view;
     [view reloadData];
+}
+
+#pragma mark - UITableViewDelegate
+
+-(NSIndexPath *) tableView: (UITableView *)tableView willSelectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    UITableView *view = (UITableView *)self.view;
+    UITableViewCell *cell = [view cellForRowAtIndexPath:indexPath];
+    
+    if ([cell.reuseIdentifier isEqualToString:@"PhoneCell"]) {
+        [AldPhoneInteraction performCall:cell.detailTextLabel.text];
+    }
+    else if ([cell.reuseIdentifier isEqualToString:@"EmailCell"]) {
+        [AldPhoneInteraction composeEmail:cell.detailTextLabel.text];
+    }
+    else if ([cell.reuseIdentifier isEqualToString:@"MapCell"]) {
+        NSString *address = self.employerAddressLabel.text;
+        if ([address isEqualToString:@""]) {
+            address = self.employerVisitorAddressLabel.text;
+            
+            if (address == nil || [address isEqualToString:@""]) {
+                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Visa på karta" message:@"Annonsen innehåller ingen addressinformation." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [view show];
+                return indexPath;
+            }
+        }
+        
+        NSString *country = self.employerCountryLabel.text;
+        if ([country isEqualToString:@""]) {
+            country = @"Sweden";
+        }
+        
+        NSString *fullAddress = [NSString stringWithFormat:@"%@, %@ %@, %@", address, self.employerCityLabel.text, self.employerZipCodeLabel.text, country];
+        [AldPhoneInteraction displayMapForLocation:fullAddress];
+    }
+    
+    return indexPath;
+}
+
+-(void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

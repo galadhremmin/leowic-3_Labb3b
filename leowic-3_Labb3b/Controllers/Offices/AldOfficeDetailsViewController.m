@@ -6,12 +6,11 @@
 //  Copyright (c) 2013 LTU. All rights reserved.
 //
 
-#import <MapKit/MapKit.h>
-#import <CoreLocation/CoreLocation.h>
 #import "AldOfficeDetailsViewController.h"
 #import "AldDataModelConstants.h"
 #import "AldDataModel.h"
 #import "AldAFOfficeDetails.h"
+#import "AldPhoneInteraction.h"
 
 @interface AldOfficeDetailsViewController ()
 
@@ -38,35 +37,7 @@
     AldAFOfficeDetails *details = [_model.offices.data objectForKey:self.office.entityId];
     NSString *locationString = [NSString stringWithFormat:@"%@, %@, Sweden", details.visitorAddress, details.visitorCity];
     
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder geocodeAddressString:locationString
-                 completionHandler:^(NSArray *placemarks, NSError *error) {
-                     
-                     // Convert the CLPlacemark to an MKPlacemark
-                     // Note: There's no error checking for a failed geocode
-                     CLPlacemark *geocodedPlacemark = [placemarks objectAtIndex:0];
-                     MKPlacemark *placemark = [[MKPlacemark alloc]
-                                               initWithCoordinate:geocodedPlacemark.location.coordinate
-                                               addressDictionary:geocodedPlacemark.addressDictionary];
-                     
-                     // Create a map item for the geocoded address to pass to Maps app
-                     MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
-                     [mapItem setName:geocodedPlacemark.name];
-                     
-                     // Pass the current location and destination map items to the Maps app
-                     // Set the direction mode in the launchOptions dictionary
-                     [MKMapItem openMapsWithItems:@[mapItem] launchOptions:nil];
-                     
-                 }];
-}
-
--(void) call: (NSString *)number
-{
-    NSString *cleanedString = [[number componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
-    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", cleanedString]];
-    
-    [[UIApplication sharedApplication] openURL:URL];
-    NSLog(@"Phone call URL: %@.", URL);
+    [AldPhoneInteraction displayMapForLocation:locationString];
 }
 
 #pragma mark - UITableViewDelegate
@@ -82,7 +53,7 @@
             break;
         case 21:
         case 31:
-            [self call:cell.detailTextLabel.text];
+            [AldPhoneInteraction performCall:cell.detailTextLabel.text];
             break;
     }
     

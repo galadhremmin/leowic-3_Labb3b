@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AldAFOpportunity.h"
 
-@interface AldOpportunityDetailsViewController : UITableViewController
+@interface AldOpportunityDetailsViewController : UITableViewController<UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *roleNameLabel;
