@@ -35,6 +35,7 @@
 		D7926B56181C71FA004A8EC5 /* AldAFOpportunity.m in Sources */ = {isa = PBXBuildFile; fileRef = D7926B55181C71FA004A8EC5 /* AldAFOpportunity.m */; };
 		D7926B59181C744E004A8EC5 /* AldAFOpportunityInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = D7926B58181C744E004A8EC5 /* AldAFOpportunityInterpreter.m */; };
 		D797F907181D5858009726AB /* AldAFOpportunityDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = D797F906181D5858009726AB /* AldAFOpportunityDetails.m */; };
+		D7ACDB1A182A820E009D905B /* AldMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7ACDB19182A820E009D905B /* AldMapViewController.m */; };
 		D7B594421823AF9B002592A1 /* AldPhoneInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = D7B594411823AF9B002592A1 /* AldPhoneInteraction.m */; };
 		D7D252F918184C290017FC24 /* AldAFInfoContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D252F818184C290017FC24 /* AldAFInfoContainer.m */; };
 		D7D252FC18184D850017FC24 /* AldAFCitiesInCountyInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D252FB18184D850017FC24 /* AldAFCitiesInCountyInterpreter.m */; };
@@ -102,6 +103,8 @@
 		D7926B58181C744E004A8EC5 /* AldAFOpportunityInterpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AldAFOpportunityInterpreter.m; sourceTree = "<group>"; };
 		D797F905181D5858009726AB /* AldAFOpportunityDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AldAFOpportunityDetails.h; sourceTree = "<group>"; };
 		D797F906181D5858009726AB /* AldAFOpportunityDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AldAFOpportunityDetails.m; sourceTree = "<group>"; };
+		D7ACDB18182A820E009D905B /* AldMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AldMapViewController.h; sourceTree = "<group>"; };
+		D7ACDB19182A820E009D905B /* AldMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AldMapViewController.m; sourceTree = "<group>"; };
 		D7B594401823AF9B002592A1 /* AldPhoneInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AldPhoneInteraction.h; sourceTree = "<group>"; };
 		D7B594411823AF9B002592A1 /* AldPhoneInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AldPhoneInteraction.m; sourceTree = "<group>"; };
 		D7D252F718184C290017FC24 /* AldAFInfoContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AldAFInfoContainer.h; sourceTree = "<group>"; };
@@ -210,6 +213,8 @@
 				D7D2530F181878B40017FC24 /* Opportunities */,
 				D7D252FD18184FC90017FC24 /* AldAlphabeticSectionsTableViewController.h */,
 				D7D252FE18184FC90017FC24 /* AldAlphabeticSectionsTableViewController.m */,
+				D7ACDB18182A820E009D905B /* AldMapViewController.h */,
+				D7ACDB19182A820E009D905B /* AldMapViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -415,6 +420,7 @@
 				D7D25319181878B40017FC24 /* AldCitySelectionViewController.m in Sources */,
 				D7D2531A181878B40017FC24 /* AldCountyOpportunitiesViewController.m in Sources */,
 				D7D2531B181878B40017FC24 /* AldOpportunitySelectionViewController.m in Sources */,
+				D7ACDB1A182A820E009D905B /* AldMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

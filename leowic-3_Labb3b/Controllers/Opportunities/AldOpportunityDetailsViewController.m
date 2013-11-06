@@ -11,6 +11,7 @@
 #import "AldDataModelConstants.h"
 #import "AldAFOpportunityDetails.h"
 #import "AldPhoneInteraction.h"
+#import "AldMapViewController.h"
 
 @interface AldOpportunityDetailsViewController ()
 
@@ -87,16 +88,23 @@
     else if ([cell.reuseIdentifier isEqualToString:@"EmailCell"]) {
         [AldPhoneInteraction composeEmail:cell.detailTextLabel.text];
     }
-    else if ([cell.reuseIdentifier isEqualToString:@"MapCell"]) {
+    
+    return indexPath;
+}
+
+-(void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Segue nagivation
+
+-(void) prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
+{
+    if ([[segue identifier] isEqualToString:@"map"]) {
         NSString *address = self.employerAddressLabel.text;
         if ([address isEqualToString:@""]) {
             address = self.employerVisitorAddressLabel.text;
-            
-            if (address == nil || [address isEqualToString:@""]) {
-                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Visa på karta" message:@"Annonsen innehåller ingen addressinformation." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [view show];
-                return indexPath;
-            }
         }
         
         NSString *country = self.employerCountryLabel.text;
@@ -105,15 +113,10 @@
         }
         
         NSString *fullAddress = [NSString stringWithFormat:@"%@, %@ %@, %@", address, self.employerCityLabel.text, self.employerZipCodeLabel.text, country];
-        [AldPhoneInteraction displayMapForLocation:fullAddress];
+     
+        AldMapViewController *nextController = (AldMapViewController *)segue.destinationViewController;
+        [nextController setAddress:fullAddress];
     }
-    
-    return indexPath;
-}
-
--(void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

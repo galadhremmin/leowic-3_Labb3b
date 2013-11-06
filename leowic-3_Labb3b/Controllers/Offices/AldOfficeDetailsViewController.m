@@ -11,6 +11,7 @@
 #import "AldDataModel.h"
 #import "AldAFOfficeDetails.h"
 #import "AldPhoneInteraction.h"
+#import "AldMapViewController.h"
 
 @interface AldOfficeDetailsViewController ()
 
@@ -32,14 +33,6 @@
     
 }
 
--(void) openMap
-{
-    AldAFOfficeDetails *details = [_model.offices.data objectForKey:self.office.entityId];
-    NSString *locationString = [NSString stringWithFormat:@"%@, %@, Sweden", details.visitorAddress, details.visitorCity];
-    
-    [AldPhoneInteraction displayMapForLocation:locationString];
-}
-
 #pragma mark - UITableViewDelegate
 
 -(NSIndexPath *) tableView: (UITableView *)tableView willSelectRowAtIndexPath: (NSIndexPath *)indexPath
@@ -48,9 +41,6 @@
     UITableViewCell *cell = [view cellForRowAtIndexPath:indexPath];
     
     switch (indexPath.section * 10 + indexPath.row) {
-        case 4:
-            [self openMap];
-            break;
         case 21:
         case 31:
             [AldPhoneInteraction performCall:cell.detailTextLabel.text];
@@ -103,6 +93,19 @@
 
     UITableView *view = (UITableView *)self.view;
     [view reloadData];
+}
+
+#pragma mark - Segue nagivation
+
+-(void) prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
+{
+    if ([[segue identifier] isEqualToString:@"map"]) {
+        AldAFOfficeDetails *details = [_model.offices.data objectForKey:self.office.entityId];
+        NSString *fullAddress = [NSString stringWithFormat:@"%@, %@, Sweden", details.visitorAddress, details.visitorCity];
+        
+        AldMapViewController *nextController = (AldMapViewController *)segue.destinationViewController;
+        [nextController setAddress:fullAddress];
+    }
 }
 
 @end
