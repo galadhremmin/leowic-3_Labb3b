@@ -112,7 +112,7 @@
             country = @"Sweden";
         }
         
-        NSString *fullAddress = [NSString stringWithFormat:@"%@, %@ %@, %@", address, self.employerCityLabel.text, self.employerZipCodeLabel.text, country];
+        NSString *fullAddress = [NSString stringWithFormat:@"%@, %@, %@ %@, %@", self.employerNameLabel.text, address, self.employerCityLabel.text, self.employerZipCodeLabel.text, country];
      
         AldMapViewController *nextController = (AldMapViewController *)segue.destinationViewController;
         [nextController setAddress:fullAddress];
