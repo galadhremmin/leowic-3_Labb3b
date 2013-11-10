@@ -53,6 +53,18 @@
     }
 }
 
+-(void) modelDataLoadingFailed: (NSNotification *)notification
+{
+    if (self.view.hidden) {
+        return;
+    }
+    
+    NSString *message = [notification.userInfo objectForKey:@"localizedDescription"];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oj! Något gick fel!" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [alert show];
+}
+
 -(void) populateFromModel
 {
     NSArray *entities = [self entitiesFromModel];
@@ -102,6 +114,8 @@
 -(void) viewDidAppear: (BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modelDataLoaded:) name:[self dataModelSignalIdentifier] object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modelDataLoadingFailed:) name:kAldDataModelSignalError object:nil];
     
     [self requestDataFromModel:_model];
     _displayingSearchResults = NO;

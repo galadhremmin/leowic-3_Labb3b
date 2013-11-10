@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 LTU. All rights reserved.
 //
 
+#define kAldDataModelSignalError                     @"AFError"
 #define kAldDataModelSignalDefault                   @"AFDefault"
 #define kAldDataModelSignalCounties                  @"AFCounty"
 #define kAldDataModelSignalCountiesWithOpportunities @"AFCountyOp"

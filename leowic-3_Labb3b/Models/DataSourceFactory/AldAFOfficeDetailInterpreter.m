@@ -19,7 +19,11 @@
 
 -(id) interpretJSONDictionary: (NSDictionary *)data
 {
-    id officeData = [data objectForKey:@"arbetsformedling"];
+    NSDictionary *officeData = [data objectForKey:@"arbetsformedling"];
+    if (officeData == nil) {
+        return nil;
+    }
+    
     return [[AldAFOfficeDetails alloc] initWithDictionary:officeData];
 }
 

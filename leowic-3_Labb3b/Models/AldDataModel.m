@@ -342,14 +342,31 @@ static AldDataModel *_defaultModel = nil;
     }
     
     id data = [state.interpreter interpretJSON:state.data];
-    [self interpreter:state.interpreter shouldNotifyNewData:data dependantOnUserData:state.userData];
+    if (data) {
+        [self interpreter:state.interpreter shouldNotifyNewData:data dependantOnUserData:state.userData];
+        [self makeStateObsolete:connection];
+    } else {
+        NSDictionary *errorDescription = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          state.interpreter.failureLocalizedDescription, @"localizedDescription",
+                                          nil];
         
-    [self makeStateObsolete:connection];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kAldDataModelSignalError object:self userInfo:errorDescription];
+    }
 }
 
 -(void) connection: (NSURLConnection *)connection didFailWithError: (NSError *)error
 {
     [self makeStateObsolete:connection];
+    
+    // Send a failure signal, in case some of the controllers are listening to this
+    NSDictionary *errorDescription = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      error.localizedDescription, @"localizedDescription",
+                                      error.localizedFailureReason, @"localizedFailureReason",
+                                      error.localizedRecoveryOptions, @"localizedRecoveryOptions",
+                                      error.localizedRecoverySuggestion, @"localizedRecoverySuggestion",
+                                      nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAldDataModelSignalError object:self userInfo:errorDescription];
 }
 
 @end

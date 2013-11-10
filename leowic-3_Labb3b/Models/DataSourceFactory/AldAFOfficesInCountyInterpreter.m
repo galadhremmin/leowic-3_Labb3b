@@ -19,7 +19,11 @@
 
 -(id) interpretJSONDictionary: (NSDictionary *)data
 {
-    id offices = [[data objectForKey:@"arbetsformedlingslista"] objectForKey:@"arbetsformedlingplatsdata"];
+    NSArray *offices = [[data objectForKey:@"arbetsformedlingslista"] objectForKey:@"arbetsformedlingplatsdata"];
+    if (offices == nil || [offices count] < 1) {
+        return nil;
+    }
+    
     NSMutableArray *result = [NSMutableArray array];
     for (NSDictionary *officeData in offices) {
         AldAFOffice *office = [[AldAFOffice alloc] initWithDictionary:officeData];

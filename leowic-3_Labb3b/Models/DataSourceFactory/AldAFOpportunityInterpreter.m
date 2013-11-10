@@ -19,7 +19,11 @@
 
 -(id) interpretJSONDictionary: (NSDictionary *)data
 {
-    id opportunities = [[data objectForKey:@"matchningslista"] objectForKey:@"matchningdata"];
+    NSArray *opportunities = [[data objectForKey:@"matchningslista"] objectForKey:@"matchningdata"];
+    if (opportunities == nil || [opportunities count] < 1) {
+        return nil;
+    }
+    
     NSMutableArray *result = [NSMutableArray array];
     for (NSDictionary *opportunityData in opportunities) {
         AldAFOpportunity *opportunity = [[AldAFOpportunity alloc] initWithDictionary:opportunityData];

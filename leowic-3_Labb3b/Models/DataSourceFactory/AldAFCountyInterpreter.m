@@ -19,7 +19,11 @@
 
 -(id) interpretJSONDictionary: (NSDictionary *)data
 {
-    id counties = [[data objectForKey:@"soklista"] objectForKey:@"sokdata"];
+    NSArray *counties = [[data objectForKey:@"soklista"] objectForKey:@"sokdata"];
+    if (counties == nil || [counties count] < 1) {
+        return nil;
+    }
+    
     NSMutableArray *result = [NSMutableArray array];
     for (NSDictionary *countyData in counties) {
         AldAFCounty *county = [[AldAFCounty alloc] initWithDictionary:countyData];

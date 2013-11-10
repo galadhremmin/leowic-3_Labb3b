@@ -19,7 +19,11 @@
 
 -(id) interpretJSONDictionary: (NSDictionary *)data
 {
-    id ad = [data objectForKey:@"platsannons"];
+    NSDictionary *ad = [data objectForKey:@"platsannons"];
+    if (ad == nil) {
+        return nil;
+    }
+    
     return [[AldAFOpportunityDetails alloc] initWithDictionary:ad];
 }
 

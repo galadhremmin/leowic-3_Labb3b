@@ -11,6 +11,7 @@
 @protocol AldJSONInterpreterProtocol <NSObject>
 
 -(NSString *) interpretationId;
+-(NSString *) failureLocalizedDescription;
 -(id) interpretJSON: (NSData *)data;
 
 @end

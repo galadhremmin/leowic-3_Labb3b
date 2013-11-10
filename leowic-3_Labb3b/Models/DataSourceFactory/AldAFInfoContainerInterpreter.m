@@ -19,7 +19,11 @@
 
 -(id) interpretJSONDictionary: (NSDictionary *)data
 {
-    id entities = [[data objectForKey:@"soklista"] objectForKey:@"sokdata"];
+    NSArray *entities = [[data objectForKey:@"soklista"] objectForKey:@"sokdata"];
+    if (entities == nil || [entities count] < 1) {
+        return nil;
+    }
+    
     NSMutableArray *result = [NSMutableArray array];
     
     for (NSDictionary *entityData in entities) {
